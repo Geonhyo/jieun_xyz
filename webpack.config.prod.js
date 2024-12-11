@@ -18,8 +18,23 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      // CSS Modules 설정
       {
-        test: /\.css$/i,
+        test: /\.module\.css$/, // .module.css 파일만 CSS Modules로 처리
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true, // CSS Modules 활성화
+            },
+          },
+        ],
+      },
+      // 글로벌 CSS 설정
+      {
+        test: /\.css$/, // 일반 .css 파일은 글로벌 스타일로 처리
+        exclude: /\.module\.css$/, // CSS Modules 파일은 제외
         use: ["style-loader", "css-loader"],
       },
     ],
