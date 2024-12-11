@@ -1,0 +1,46 @@
+# Node.js 관련
+node_modules/           
+# 의존성 파일
+npm-debug.log*          
+# npm 디버그 로그
+.pnpm-debug.log*        
+# pnpm 디버그 로그 (pnpm 흔적이 있다면)
+
+# 디렉토리 빌드 결과물
+dist/                   
+# Webpack, TypeScript 빌드 디렉토리
+build/                  
+# CRA(React App) 빌드 디렉토리
+out/                    
+# VSC 디버깅 출력 디렉토리
+
+# 환경 설정 파일
+.env              
+.env.local
+.env.*.local
+
+# 시스템 파일
+.DS_Store               
+# macOS 시스템 파일
+Thumbs.db               
+# Windows 썸네일 데이터베이스 파일
+.vscode/                
+# VSCode 사용자 설정
+.idea/                  
+# JetBrains IDE 설정
+*.swp                   
+# Vim 임시 파일
+
+# TypeScript 관련
+*.tsbuildinfo           
+# TypeScript 빌드 정보 캐시 파일
+
+# 로그 파일
+*.log                   
+# 모든 로그 파일
+
+# Git 관련
+*.orig                  
+# 머지 충돌 시 생성되는 파일
+*.rej                   
+# 패치 적용 실패 시 생성되는 파일
