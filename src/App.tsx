@@ -1,14 +1,18 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home/Home";
 
 const App: React.FC = () => {
   return (
-    <div className="container">
-      <h1>Hello, React 18 with TypeScript!</h1>
-      <p>Welcome to your React application styled with basic CSS.</p>
-    </div>
+    <>
+      {/* <h1>Happy Jieun's Day</h1> */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
-
-console.log("App component rendering!");
 
 export default App;

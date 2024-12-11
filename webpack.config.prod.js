@@ -26,7 +26,9 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              modules: true, // CSS Modules 활성화
+              modules: {
+                namedExport: false,
+              },
             },
           },
         ],

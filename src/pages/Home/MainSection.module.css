@@ -1,0 +1,33 @@
+.imageContainer {
+  position: relative;
+  max-width: 288px;
+  width: 100%;
+  aspect-ratio: 288/424;
+  margin-bottom: 4.75rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 375px) {
+  .imageContainer {
+    max-width: 343px;
+    aspect-ratio: 343/527;
+  }
+}
+
+@media screen and (min-width: 440px) {
+  .imageContainer {
+    max-width: 408px;
+    aspect-ratio: 408/564;
+  }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.spacer {
+  flex: 1;
+}
