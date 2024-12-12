@@ -1,0 +1,22 @@
+.wrapper {
+  position: relative;
+  height: 100dvh;
+  width: 100dvw;
+  overflow: hidden;
+  background-image: url("./background/dotted.jpg");
+  background-repeat: repeat;
+}
+
+.canvas {
+  position: absolute;
+  /* transform: translate(-50%, 0); */
+  /* height: 906px; */
+  /* width: 1280px; */
+  height: 1000px;
+  width: 1414px;
+  /* 1:√2 */
+  background-color: aqua;
+  z-index: 0;
+  /* Canvas 내부 자유 배치를 지원 */
+  cursor: grab;
+}

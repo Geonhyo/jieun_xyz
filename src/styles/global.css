@@ -55,12 +55,20 @@ ol {
   /* 목록 스타일 제거 */
 }
 
-img {
+img,
+source,
+picture {
   max-width: 100%;
   /* 반응형 이미지 */
   display: block;
   height: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
+
 
 button {
   all: unset;
