@@ -1,12 +1,38 @@
-import React, { useState } from "react";
-import { ImageInfo, ObjectModel } from "../../models/object";
+import React, { useRef, useState } from "react";
+import { ImageInfo, ObjectModel, TextInfo } from "../../models/object";
 import styles from "./ObjectComponent.module.css";
 import { PositionModel } from "../../models/position";
+import FontSizeControl from "./FontSizeControl";
+
+const fontColorList = [
+  "#232323", // black
+  "#FFFFFF", // white
+  "#D32F2F", // red
+  "#4EC33C", // green
+  "#328BF8", // blue
+  "#FFCE2B", // yellow
+  "#FF2599", // pink
+  "#FF7410", // orange
+  "#BA25FF", // purple
+  "#808080", // gray
+  "#A52A2A", // brown
+];
+
+const fontFamilyList = [
+  "NotoSansKR",
+  "Bangers",
+  "Gaegu",
+  "NanumGothicCoding",
+  "NanumPenScript",
+  "NotoSerifKR",
+  "Sunflower",
+];
 
 type Props = {
   object: ObjectModel;
   scale: number;
   position: PositionModel;
+  isSelected: boolean;
   setSelectedObjectId: React.Dispatch<React.SetStateAction<string | null>>;
   deleteObject: (id: string) => void;
   updateObject: (object: ObjectModel) => void;
@@ -16,13 +42,18 @@ const ObjectComponent: React.FC<Props> = ({
   object: value,
   scale,
   position,
+  isSelected: valueIsSelected,
   setSelectedObjectId,
   deleteObject,
   updateObject,
 }) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [object, setObject] = useState<ObjectModel>(value);
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(valueIsSelected);
   const [isChanged, setIsChanged] = useState(false);
+  const [selectedSubTask, setSelectedSubTask] = useState<
+    "size" | "color" | null
+  >(null);
 
   const handleMouseDown = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -86,6 +117,12 @@ const ObjectComponent: React.FC<Props> = ({
         width: Math.max(32, object.width + (localDx * 2) / scale), // 최소 크기 제한
         height: Math.max(32, object.height + (localDy * 2) / scale), // 최소 크기 제한
       }));
+
+      if (object.data.type === "text" && textareaRef.current) {
+        // 높이를 초기화한 후 scrollHeight로 다시 설정
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
     };
 
     const mouseUpHandler = () => {
@@ -156,10 +193,97 @@ const ObjectComponent: React.FC<Props> = ({
   const handleSave = () => {
     setIsSelected(false);
     setSelectedObjectId(null);
+
+    if (object.data.type === "text" && object.data.text === "") {
+      // TODO : DB에서 삭제하는 로직 추가
+      deleteObject(object.id);
+      return;
+    }
+
     if (!isChanged) {
       return;
     }
+
     // TODO : DB에 저장하는 로직 추가
+  };
+
+  const handleTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value;
+    setObject((prev) => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        text,
+      },
+    }));
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
+  const handleTextBackdropClicked = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSelectedSubTask(null);
+  };
+
+  const handleTextFamilyClicked = () => {
+    setObject((prev) => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        family:
+          fontFamilyList[
+            (fontFamilyList.indexOf((prev.data as TextInfo).family) + 1) %
+              fontFamilyList.length
+          ],
+      } as TextInfo,
+    }));
+    setSelectedSubTask(null);
+  };
+
+  const handleTextColorClicked = () => {
+    setSelectedSubTask("color");
+  };
+
+  const handleTextSizeClicked = () => {
+    setSelectedSubTask("size");
+  };
+
+  const handleTextWeightClicked = () => {
+    setSelectedSubTask(null);
+    setObject((prev) => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        bold: !(prev.data as TextInfo).bold,
+      } as TextInfo,
+    }));
+  };
+
+  const handleTextColorSelected = (e: React.MouseEvent) => {
+    const color = (e.target as HTMLButtonElement).value;
+    setObject((prev) => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        color,
+      },
+    }));
+  };
+
+  const handleTextSizeChanged = (value: number) => {
+    setObject((prev) => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        size: value,
+      },
+    }));
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
   };
 
   return (
@@ -177,13 +301,43 @@ const ObjectComponent: React.FC<Props> = ({
           width: object.width * scale,
           height: object.height * scale,
           transform: `rotate(${object.rotation}rad)`,
+          overflow: "visible",
         }}
       >
         {object.data.type === "image" && (
           <img
             className={styles.image}
+            style={{
+              cursor: isSelected ? "move" : "inherit",
+            }}
             src={(object.data as ImageInfo).src}
             alt="object"
+          />
+        )}
+        {object.data.type === "text" && (
+          <textarea
+            ref={textareaRef}
+            rows={1}
+            placeholder="텍스트를 입력하세요"
+            autoFocus={isSelected}
+            style={{
+              maxWidth: "100%",
+              width: "100%",
+              height: "auto",
+              fontSize: (object.data as TextInfo).size * scale,
+              lineHeight: (object.data as TextInfo).size < 48 ? "1.25" : "1",
+              color: (object.data as TextInfo).color,
+              fontFamily: (object.data as TextInfo).family,
+              fontWeight: (object.data as TextInfo).bold ? "bold" : "normal",
+              resize: "none",
+              overflow: "hidden",
+              whiteSpace: "pre-wrap",
+              overflowWrap: "break-word",
+              cursor: object.disabled || isSelected ? "text" : "move",
+            }}
+            value={(object.data as TextInfo).text}
+            onChange={handleTextChanged}
+            wrap="hard"
           />
         )}
         {isSelected && (
@@ -222,15 +376,105 @@ const ObjectComponent: React.FC<Props> = ({
               />
               <p className={styles.taskLabel}>삭제</p>
             </button>
-            <div className={styles.taskDivider} />
-            <button className={styles.taskButton} onClick={handleRestoreRatio}>
-              <img
-                className={styles.taskIcon}
-                src="icons/ratio.webp"
-                alt="ratio-restore"
-              />
-              <p className={styles.taskLabel}>원본 비율</p>
-            </button>
+            {object.data.type === "image" && (
+              <>
+                <div className={styles.taskDivider} />
+                <button
+                  className={styles.taskButton}
+                  onClick={handleRestoreRatio}
+                >
+                  <img
+                    className={styles.taskIcon}
+                    src="icons/ratio.webp"
+                    alt="ratio-restore"
+                  />
+                  <p className={styles.taskLabel}>원본 비율</p>
+                </button>
+              </>
+            )}
+            {object.data.type === "text" && object.data.text !== "" && (
+              <>
+                {selectedSubTask !== null && (
+                  <div
+                    className={styles.backdrop}
+                    onMouseDown={handleTextBackdropClicked}
+                  />
+                )}
+
+                <div className={styles.taskDivider} />
+                <button
+                  className={styles.taskButton}
+                  onMouseDown={handleTextFamilyClicked}
+                >
+                  <img
+                    className={styles.taskIcon}
+                    src="icons/font-family.webp"
+                    alt="font-family"
+                  />
+                </button>
+                <button
+                  className={styles.taskButton}
+                  onMouseDown={handleTextColorClicked}
+                >
+                  <img
+                    className={styles.taskIcon}
+                    src="icons/font-color.webp"
+                    alt="font-family"
+                  />
+                </button>
+                <button
+                  className={styles.taskButton}
+                  onMouseDown={handleTextSizeClicked}
+                >
+                  <img
+                    className={styles.taskIcon}
+                    src="icons/font-size.webp"
+                    alt="font-family"
+                  />
+                </button>
+                <button
+                  className={styles.taskButton}
+                  onMouseDown={handleTextWeightClicked}
+                  style={{
+                    backgroundColor: (object.data as TextInfo).bold
+                      ? "var(--black)"
+                      : "transparent",
+                  }}
+                >
+                  <img
+                    className={styles.taskIcon}
+                    src="icons/font-weight.webp"
+                    alt="font-family"
+                  />
+                </button>
+                {selectedSubTask === "color" && (
+                  <div className={styles.subTaskIsland}>
+                    {fontColorList.map((color) => (
+                      <button
+                        className={styles.colorCircle}
+                        style={{
+                          backgroundColor: color,
+                          border:
+                            color === (object.data as TextInfo).color
+                              ? `3px solid var(--black)`
+                              : "inherit",
+                        }}
+                        value={color}
+                        onMouseDown={handleTextColorSelected}
+                      />
+                    ))}
+                  </div>
+                )}
+                {selectedSubTask === "size" && (
+                  <div className={styles.subTaskIsland}>
+                    <FontSizeControl
+                      value={object.data.size}
+                      onChangeValue={handleTextSizeChanged}
+                    />
+                  </div>
+                )}
+              </>
+            )}
           </div>
           <button className={styles.cancelButton} onClick={handleCancel}>
             <p className={styles.taskLabel}>취소</p>

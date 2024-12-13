@@ -1,0 +1,45 @@
+.slider {
+  position: relative;
+  width: 300px;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-user-drag: none;
+}
+
+.scaleBar {
+  position: absolute;
+  top: 0.75rem;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--light-gray)
+}
+
+
+.handle {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: var(--gray);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.handle:hover {
+  background-color: var(--black);
+}
+
+.valueDisplay {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #333;
+}

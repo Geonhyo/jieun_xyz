@@ -30,6 +30,7 @@ const Canvas: React.FC = () => {
       width: 212,
       height: 212,
       disabled: true,
+      isSelected: false,
       data: {
         type: "image",
         src: "/images/center.png",
@@ -98,6 +99,36 @@ const Canvas: React.FC = () => {
         rotation: 0,
         data: image,
         disabled: false,
+        isSelected: true,
+      })
+    );
+  };
+
+  const handleAddText = async () => {
+    const width = 244;
+    const height = 36;
+    const maxZ =
+      objects.length > 0 ? Math.max(...objects.map((obj) => obj.z)) : 0;
+
+    setObjects((prev) =>
+      prev.concat({
+        id: "",
+        width,
+        height,
+        x: position.x - originX,
+        y: position.y - originY,
+        z: maxZ + 1,
+        rotation: 0,
+        data: {
+          type: "text",
+          text: "",
+          size: 24,
+          color: "#232323",
+          family: "Pretendard",
+          bold: false,
+        } as TextInfo,
+        disabled: false,
+        isSelected: true,
       })
     );
   };
@@ -136,6 +167,7 @@ const Canvas: React.FC = () => {
             scale={scale}
             position={position}
             object={object}
+            isSelected={object.isSelected}
             deleteObject={handleObjectDeleted}
             setSelectedObjectId={setSelectedObjectId}
             updateObject={handleObjectUpdated}
@@ -151,7 +183,7 @@ const Canvas: React.FC = () => {
             resetPosition={handleResetPosition}
           />
           <BackButton />
-          <CreateButton addImage={handleAddImage} />
+          <CreateButton addImage={handleAddImage} addText={handleAddText} />
         </>
       )}
     </main>

@@ -11,6 +11,7 @@ export interface TextInfo {
   size: number;
   color: string;
   family: string;
+  bold: boolean;
 }
 
 export interface ObjectModel {
@@ -21,6 +22,7 @@ export interface ObjectModel {
   rotation: number;
   width: number;
   height: number;
-  disabled: boolean;
   data: ImageInfo | TextInfo;
+  disabled: boolean;
+  isSelected: boolean;
 }

@@ -5,9 +5,10 @@ import { ImageInfo } from "../../models/object";
 
 type Props = {
   addImage: (image: ImageInfo) => void;
+  addText: () => void;
 };
 
-const CreateButton: React.FC<Props> = ({ addImage }) => {
+const CreateButton: React.FC<Props> = ({ addImage, addText }) => {
   const [onClicked, setOnClicked] = React.useState(false);
   const handleClick = () => {
     setOnClicked(!onClicked);
@@ -23,7 +24,7 @@ const CreateButton: React.FC<Props> = ({ addImage }) => {
   };
 
   const handleTextClick = () => {
-    console.log("Text clicked");
+    addText();
     handleClose();
   };
 

@@ -135,40 +135,16 @@ td {
   font-family: 'Bangers';
   src: url('../assets/fonts/Bangers/Bangers-Regular.woff2') format('woff2'),
     url('../assets/fonts/Bangers/Bangers-Regular.woff') format('woff');
-  font-weight: normal;
+  font-weight: normal, bold;
   font-style: normal;
 }
 
 /* Pretendard 폰트 정의 */
 @font-face {
   font-family: 'Pretendard';
-  src: url('../assets/fonts/Pretendard/Pretendard-Thin.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-Thin.woff') format('woff');
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('../assets/fonts/Pretendard/Pretendard-ExtraLight.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-ExtraLight.woff') format('woff');
-  font-weight: 200;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('../assets/fonts/Pretendard/Pretendard-Light.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Pretendard';
   src: url('../assets/fonts/Pretendard/Pretendard-Regular.woff2') format('woff2'),
     url('../assets/fonts/Pretendard/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
+  font-weight: 400, normal;
   font-style: normal;
 }
 
@@ -180,34 +156,96 @@ td {
   font-style: normal;
 }
 
+/* NotoSansKR 폰트 정의 */
 @font-face {
-  font-family: 'Pretendard';
-  src: url('../assets/fonts/Pretendard/Pretendard-SemiBold.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-SemiBold.woff') format('woff');
-  font-weight: 600;
+  font-family: 'NotoSansKR';
+  src: url('../assets/fonts/NotoSansKR/NotoSansKR-Regular.woff2') format('woff2'),
+    url('../assets/fonts/NotoSansKR/NotoSansKR-Regular.woff') format('woff');
+  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Pretendard';
-  src: url('../assets/fonts/Pretendard/Pretendard-Bold.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-Bold.woff') format('woff');
-  font-weight: 700;
+  font-family: 'NotoSansKR';
+  src: url('../assets/fonts/NotoSansKR/NotoSansKR-Bold.woff2') format('woff2'),
+    url('../assets/fonts/NotoSansKR/NotoSansKR-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* NotoSerifKR 폰트 정의 */
+@font-face {
+  font-family: 'NotoSerifKR';
+  src: url('../assets/fonts/NotoSerifKR/NotoSerifKR-Regular.woff2') format('woff2'),
+    url('../assets/fonts/NotoSerifKR/NotoSerifKR-Regular.woff') format('woff');
+  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Pretendard';
-  src: url('../assets/fonts/Pretendard/Pretendard-ExtraBold.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-ExtraBold.woff') format('woff');
-  font-weight: 800;
+  font-family: 'NotoSerifKR';
+  src: url('../assets/fonts/NotoSerifKR/NotoSerifKR-Bold.woff2') format('woff2'),
+    url('../assets/fonts/NotoSerifKR/NotoSerifKR-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* NanumGothicCoding 폰트 정의 */
+@font-face {
+  font-family: 'NanumGothicCoding';
+  src: url('../assets/fonts/NanumGothicCoding/NanumGothicCoding-Regular.woff2') format('woff2'),
+    url('../assets/fonts/NanumGothicCoding/NanumGothicCoding-Regular.woff') format('woff');
+  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Pretendard';
-  src: url('../assets/fonts/Pretendard/Pretendard-Black.woff2') format('woff2'),
-    url('../assets/fonts/Pretendard/Pretendard-Black.woff') format('woff');
-  font-weight: 900;
+  font-family: 'NanumGothicCoding';
+  src: url('../assets/fonts/NanumGothicCoding/NanumGothicCoding-Bold.woff2') format('woff2'),
+    url('../assets/fonts/NanumGothicCoding/NanumGothicCoding-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Gaegu 폰트 정의 */
+@font-face {
+  font-family: 'Gaegu';
+  src: url('../assets/fonts/Gaegu/Gaegu-Regular.woff2') format('woff2'),
+    url('../assets/fonts/Gaegu/Gaegu-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gaegu';
+  src: url('../assets/fonts/Gaegu/Gaegu-Bold.woff2') format('woff2'),
+    url('../assets/fonts/Gaegu/Gaegu-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* NanumPenScript 폰트 정의 */
+@font-face {
+  font-family: 'NanumPenScript';
+  src: url('../assets/fonts/NanumPenScript/NanumPenScript-Regular.woff2') format('woff2'),
+    url('../assets/fonts/NanumPenScript/NanumPenScript-Regular.woff') format('woff');
+  font-weight: normal, bold;
+  font-style: normal;
+}
+
+/* Sunflower 폰트 정의 */
+@font-face {
+  font-family: 'Sunflower';
+  src: url('../assets/fonts/Sunflower/Sunflower-Regular.woff2') format('woff2'),
+    url('../assets/fonts/Sunflower/Sunflower-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sunflower';
+  src: url('../assets/fonts/Sunflower/Sunflower-Bold.woff2') format('woff2'),
+    url('../assets/fonts/Sunflower/Sunflower-Bold.woff') format('woff');
+  font-weight: bold;
   font-style: normal;
 }
