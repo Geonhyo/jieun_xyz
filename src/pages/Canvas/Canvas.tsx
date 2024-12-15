@@ -2,11 +2,17 @@ import React, { useRef, useState } from "react";
 import styles from "./Canvas.module.css";
 import BackButton from "./BackButton";
 import CreateButton from "./CreateButton";
-import { ImageInfo, ObjectModel, TextInfo } from "../../models/object";
+import {
+  ImageInfo,
+  ObjectModel,
+  StickerInfo,
+  TextInfo,
+} from "../../models/object";
 import { PositionModel } from "../../models/position";
 import ScaleButton from "./ScaleButton";
 import ObjectComponent from "./ObjectComponent";
 import PositionButton from "./PositionButton";
+import stickers from "../../stickers.json";
 
 const originX = window.innerWidth / 2;
 const originY = window.innerHeight / 2;
@@ -133,6 +139,28 @@ const Canvas: React.FC = () => {
     );
   };
 
+  const handleAddSticker = async (sticker: StickerInfo) => {
+    const width = Math.min(sticker.width, 224);
+    const height = width * (sticker.height / sticker.width);
+    const maxZ =
+      objects.length > 0 ? Math.max(...objects.map((obj) => obj.z)) : 0;
+
+    setObjects((prev) =>
+      prev.concat({
+        id: "",
+        width,
+        height,
+        x: position.x - originX,
+        y: position.y - originY,
+        z: maxZ + 1,
+        rotation: 0,
+        data: sticker,
+        disabled: false,
+        isSelected: true,
+      })
+    );
+  };
+
   const handleObjectDeleted = (id: string) => {
     setObjects((prev) => prev.filter((obj) => obj.id !== id));
   };
@@ -151,6 +179,7 @@ const Canvas: React.FC = () => {
 
   return (
     <main
+      id="canvas"
       ref={canvasRef}
       className={styles.wrapper}
       onMouseDown={handleMouseDown}
@@ -183,9 +212,14 @@ const Canvas: React.FC = () => {
             resetPosition={handleResetPosition}
           />
           <BackButton />
-          <CreateButton addImage={handleAddImage} addText={handleAddText} />
+          <CreateButton
+            addImage={handleAddImage}
+            addText={handleAddText}
+            addSticker={handleAddSticker}
+          />
         </>
       )}
+      {}
     </main>
   );
 };

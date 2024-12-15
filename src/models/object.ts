@@ -14,6 +14,16 @@ export interface TextInfo {
   bold: boolean;
 }
 
+export interface StickerInfo {
+  type: "sticker";
+  id: string;
+  title: string;
+  src: string;
+  category: string;
+  width: number;
+  height: number;
+}
+
 export interface ObjectModel {
   id: string;
   x: number;
@@ -22,7 +32,7 @@ export interface ObjectModel {
   rotation: number;
   width: number;
   height: number;
-  data: ImageInfo | TextInfo;
+  data: ImageInfo | TextInfo | StickerInfo;
   disabled: boolean;
   isSelected: boolean;
 }

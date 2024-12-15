@@ -1,0 +1,407 @@
+[
+  {
+    "type": "sticker",
+    "id": "1-1",
+    "category": "message",
+    "src": "birthday",
+    "title": "생일",
+    "width": 233,
+    "height": 143
+  },
+  {
+    "type": "sticker",
+    "id": "1-2",
+    "category": "message",
+    "src": "caffeine",
+    "title": "카페인 섭취",
+    "width": 262,
+    "height": 189
+  },
+  {
+    "type": "sticker",
+    "id": "1-3",
+    "category": "message",
+    "src": "candy",
+    "title": "군것질 땡기는 날",
+    "width": 276,
+    "height": 160
+  },
+  {
+    "type": "sticker",
+    "id": "1-4",
+    "category": "message",
+    "src": "celebrate",
+    "title": "축하해요",
+    "width": 202,
+    "height": 201
+  },
+  {
+    "type": "sticker",
+    "id": "1-5",
+    "category": "message",
+    "src": "cheer-1",
+    "title": "힘내자 1",
+    "width": 267,
+    "height": 186
+  },
+  {
+    "type": "sticker",
+    "id": "1-6",
+    "category": "message",
+    "src": "cheer-2",
+    "title": "힘내자 2",
+    "width": 206,
+    "height": 186
+  },
+  {
+    "type": "sticker",
+    "id": "1-7",
+    "category": "message",
+    "src": "compliment",
+    "title": "잘하고 있어",
+    "width": 254,
+    "height": 141
+  },
+  {
+    "type": "sticker",
+    "id": "1-8",
+    "category": "message",
+    "src": "good-weather",
+    "title": "날씨 좋다",
+    "width": 295,
+    "height": 179
+  },
+  {
+    "type": "sticker",
+    "id": "1-9",
+    "category": "message",
+    "src": "happy",
+    "title": "행복하자",
+    "width": 308,
+    "height": 149
+  },
+  {
+    "type": "sticker",
+    "id": "1-10",
+    "category": "message",
+    "src": "important",
+    "title": "중요해",
+    "width": 276,
+    "height": 160
+  },
+  {
+    "type": "sticker",
+    "id": "1-11",
+    "category": "message",
+    "src": "love",
+    "title": "LOVE",
+    "width": 183,
+    "height": 167
+  },
+  {
+    "type": "sticker",
+    "id": "1-12",
+    "category": "message",
+    "src": "pounding",
+    "title": "두근~",
+    "width": 196,
+    "height": 186
+  },
+  {
+    "type": "sticker",
+    "id": "1-13",
+    "category": "message",
+    "src": "promise",
+    "title": "약속",
+    "width": 189,
+    "height": 143
+  },
+  {
+    "type": "sticker",
+    "id": "1-14",
+    "category": "message",
+    "src": "salary",
+    "title": "월급날",
+    "width": 320,
+    "height": 143
+  },
+  {
+    "type": "sticker",
+    "id": "1-15",
+    "category": "message",
+    "src": "scream",
+    "title": "멘붕",
+    "width": 228,
+    "height": 136
+  },
+  {
+    "type": "sticker",
+    "id": "1-16",
+    "category": "message",
+    "src": "thanks",
+    "title": "고마워",
+    "width": 168,
+    "height": 176
+  },
+  {
+    "type": "sticker",
+    "id": "1-17",
+    "category": "message",
+    "src": "trip",
+    "title": "여행가자",
+    "width": 358,
+    "height": 172
+  },
+  {
+    "type": "sticker",
+    "id": "1-18",
+    "category": "message",
+    "src": "write",
+    "title": "끄적",
+    "width": 309,
+    "height": 193
+  },
+  {
+    "type": "sticker",
+    "id": "2-1",
+    "category": "memo",
+    "src": "cloud-1",
+    "title": "구름 1",
+    "width": 334,
+    "height": 80
+  },
+  {
+    "type": "sticker",
+    "id": "2-2",
+    "category": "memo",
+    "src": "large-1",
+    "title": "큰 메모장",
+    "width": 340,
+    "height": 444
+  },
+  {
+    "type": "sticker",
+    "id": "2-3",
+    "category": "memo",
+    "src": "medium-1",
+    "title": "중간 메모-1",
+    "width": 358,
+    "height": 249
+  },
+  {
+    "type": "sticker",
+    "id": "2-4",
+    "category": "memo",
+    "src": "medium-2",
+    "title": "중간 메모-2",
+    "width": 240,
+    "height": 259
+  },
+  {
+    "type": "sticker",
+    "id": "2-5",
+    "category": "memo",
+    "src": "small-1",
+    "title": "작은 메모-1",
+    "width": 334,
+    "height": 80
+  },
+  {
+    "type": "sticker",
+    "id": "2-6",
+    "category": "memo",
+    "src": "small-2",
+    "title": "작은 메모 2",
+    "width": 334,
+    "height": 80
+  },
+  {
+    "type": "sticker",
+    "id": "2-7",
+    "category": "memo",
+    "src": "small-3",
+    "title": "작은 메모 3",
+    "width": 334,
+    "height": 80
+  },
+  {
+    "type": "sticker",
+    "id": "3-1",
+    "category": "flower",
+    "src": "flower-1",
+    "title": "빨간 장미",
+    "width": 64,
+    "height": 96
+  },
+  {
+    "type": "sticker",
+    "id": "3-2",
+    "category": "flower",
+    "src": "flower-2",
+    "title": "분홍 장미",
+    "width": 64,
+    "height": 96
+  },
+  {
+    "type": "sticker",
+    "id": "3-3",
+    "category": "flower",
+    "src": "leap-1",
+    "title": "밝은 잎사귀",
+    "width": 64,
+    "height": 96
+  },
+  {
+    "type": "sticker",
+    "id": "3-4",
+    "category": "flower",
+    "src": "leap-2",
+    "title": "어두운 잎사귀",
+    "width": 64,
+    "height": 96
+  },
+  {
+    "type": "sticker",
+    "id": "3-5",
+    "category": "flower",
+    "src": "mini-flower-blue",
+    "title": "파랑색 작은 꽃잎",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-6",
+    "category": "flower",
+    "src": "mini-flower-brown",
+    "title": "갈색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-7",
+    "category": "flower",
+    "src": "mini-flower-darkgreen",
+    "title": "진초록색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-8",
+    "category": "flower",
+    "src": "mini-flower-green",
+    "title": "초록색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-9",
+    "category": "flower",
+    "src": "mini-flower-lemon",
+    "title": "레몬색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-10",
+    "category": "flower",
+    "src": "mini-flower-lime",
+    "title": "라임색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-11",
+    "category": "flower",
+    "src": "mini-flower-navy",
+    "title": "남색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-12",
+    "category": "flower",
+    "src": "mini-flower-ocean",
+    "title": "바다색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-13",
+    "category": "flower",
+    "src": "mini-flower-orange",
+    "title": "주황색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-14",
+    "category": "flower",
+    "src": "mini-flower-pink",
+    "title": "분홍색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-15",
+    "category": "flower",
+    "src": "mini-flower-purple",
+    "title": "보라색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-16",
+    "category": "flower",
+    "src": "mini-flower-red",
+    "title": "빨강색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-17",
+    "category": "flower",
+    "src": "mini-flower-skin",
+    "title": "살구색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-18",
+    "category": "flower",
+    "src": "mini-flower-skyblue",
+    "title": "하늘색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-19",
+    "category": "flower",
+    "src": "mini-flower-yellow",
+    "title": "노랑색 작은 꽃",
+    "width": 56,
+    "height": 56
+  },
+  {
+    "type": "sticker",
+    "id": "3-20",
+    "category": "flower",
+    "src": "sprout",
+    "title": "새싹",
+    "width": 64,
+    "height": 96
+  }
+]

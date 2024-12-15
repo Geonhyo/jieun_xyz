@@ -1,5 +1,10 @@
 import React, { useRef, useState } from "react";
-import { ImageInfo, ObjectModel, TextInfo } from "../../models/object";
+import {
+  ImageInfo,
+  ObjectModel,
+  StickerInfo,
+  TextInfo,
+} from "../../models/object";
 import styles from "./ObjectComponent.module.css";
 import { PositionModel } from "../../models/position";
 import FontSizeControl from "./FontSizeControl";
@@ -175,12 +180,24 @@ const ObjectComponent: React.FC<Props> = ({
   };
 
   const handleRestoreRatio = () => {
-    setObject((prev) => ({
-      ...prev,
-      height:
-        prev.width *
-        ((prev.data as ImageInfo).height / (prev.data as ImageInfo).width),
-    }));
+    if (object.data.type === "image") {
+      setObject((prev) => ({
+        ...prev,
+        height:
+          prev.width *
+          ((prev.data as ImageInfo).height / (prev.data as ImageInfo).width),
+      }));
+    }
+
+    if (object.data.type === "sticker") {
+      setObject((prev) => ({
+        ...prev,
+        height:
+          prev.width *
+          ((prev.data as StickerInfo).height /
+            (prev.data as StickerInfo).width),
+      }));
+    }
   };
 
   const handleCancel = () => {
@@ -314,6 +331,18 @@ const ObjectComponent: React.FC<Props> = ({
             alt="object"
           />
         )}
+        {object.data.type === "sticker" && (
+          <img
+            className={styles.image}
+            style={{
+              cursor: isSelected ? "move" : "inherit",
+            }}
+            src={`stickers/${(object.data as StickerInfo).category}/${
+              (object.data as StickerInfo).src
+            }.png`}
+            alt="object"
+          />
+        )}
         {object.data.type === "text" && (
           <textarea
             ref={textareaRef}
@@ -376,22 +405,23 @@ const ObjectComponent: React.FC<Props> = ({
               />
               <p className={styles.taskLabel}>삭제</p>
             </button>
-            {object.data.type === "image" && (
-              <>
-                <div className={styles.taskDivider} />
-                <button
-                  className={styles.taskButton}
-                  onClick={handleRestoreRatio}
-                >
-                  <img
-                    className={styles.taskIcon}
-                    src="icons/ratio.webp"
-                    alt="ratio-restore"
-                  />
-                  <p className={styles.taskLabel}>원본 비율</p>
-                </button>
-              </>
-            )}
+            {object.data.type === "image" ||
+              (object.data.type === "sticker" && (
+                <>
+                  <div className={styles.taskDivider} />
+                  <button
+                    className={styles.taskButton}
+                    onClick={handleRestoreRatio}
+                  >
+                    <img
+                      className={styles.taskIcon}
+                      src="icons/ratio.webp"
+                      alt="ratio-restore"
+                    />
+                    <p className={styles.taskLabel}>원본 비율</p>
+                  </button>
+                </>
+              ))}
             {object.data.type === "text" && object.data.text !== "" && (
               <>
                 {selectedSubTask !== null && (
