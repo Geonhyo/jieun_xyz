@@ -3,7 +3,7 @@ import styles from "./Button.module.css";
 
 const Button: React.FC = () => {
   return (
-    <a href="/paper" className={styles.floatingButton}>
+    <a href="/2024-12-21" className={styles.floatingButton}>
       <span className={styles.label}>롤링페이퍼</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
