@@ -1,5 +1,6 @@
 const path = require("path");
 const DotEnv = require("dotenv-webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -14,6 +15,10 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js"],
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html", // HTML 템플릿 파일 경로
+      inject: true, // 번들 파일 자동 삽입
+    }),
     new DotEnv(), // .env 파일 로드
   ],
   module: {
