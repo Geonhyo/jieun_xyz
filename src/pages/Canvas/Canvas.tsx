@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Canvas.module.css";
 import BackButton from "./BackButton";
 import CreateButton from "./CreateButton";
@@ -38,15 +38,23 @@ const Canvas: React.FC = () => {
       width: 212,
       height: 212,
       disabled: true,
-      isSelected: false,
       data: {
         type: "image",
         src: "/images/center.png",
         width: 200,
         height: 212,
       },
+      createdAt: new Date("2024-12-15").toISOString(),
     },
   ]);
+
+  useEffect(() => {
+    // TODO : DB에서 불러오기
+    const savedObjects = sessionStorage.getItem("objects");
+    if (savedObjects) {
+      setObjects((prev) => prev.concat(JSON.parse(savedObjects)));
+    }
+  }, []);
 
   const handleResetScale = () => {
     setScale(1);
@@ -101,13 +109,13 @@ const Canvas: React.FC = () => {
         id: "",
         width,
         height,
-        x: position.x - originX,
-        y: position.y - originY,
+        x: originX - position.x,
+        y: originY - position.y,
         z: maxZ + 1,
         rotation: 0,
         data: image,
         disabled: false,
-        isSelected: true,
+        createdAt: new Date().toISOString(),
       })
     );
   };
@@ -123,8 +131,8 @@ const Canvas: React.FC = () => {
         id: "",
         width,
         height,
-        x: position.x - originX,
-        y: position.y - originY,
+        x: originX - position.x,
+        y: originY - position.y,
         z: maxZ + 1,
         rotation: 0,
         data: {
@@ -136,7 +144,7 @@ const Canvas: React.FC = () => {
           bold: false,
         } as TextInfo,
         disabled: false,
-        isSelected: true,
+        createdAt: new Date().toISOString(),
       })
     );
   };
@@ -152,13 +160,13 @@ const Canvas: React.FC = () => {
         id: "",
         width,
         height,
-        x: position.x - originX,
-        y: position.y - originY,
+        x: originX - position.x,
+        y: originY - position.y,
         z: maxZ + 1,
         rotation: 0,
         data: sticker,
         disabled: false,
-        isSelected: true,
+        createdAt: new Date().toISOString(),
       })
     );
   };
@@ -171,7 +179,7 @@ const Canvas: React.FC = () => {
     // 객체를 배열에 반영
     setObjects((prev) =>
       prev.map((obj) => {
-        if (obj.id === object.id) {
+        if (obj.id === object.id || obj.id === "") {
           return object;
         }
         return obj;
@@ -208,14 +216,15 @@ const Canvas: React.FC = () => {
         backgroundSize: `${100 * scale}%`, // 배경 크기 조정
       }}
     >
-      {objects.map((object) => {
+      {objects.map((object, index) => {
         return (
           <ObjectComponent
-            key={object.id}
+            key={`${object.id}-${index}`}
             scale={scale}
             position={position}
             object={object}
-            isSelected={object.isSelected}
+            // isSelected={object.isSelected}
+            isAdmin={isAdmin}
             deleteObject={handleObjectDeleted}
             setSelectedObjectId={setSelectedObjectId}
             updateObject={handleObjectUpdated}

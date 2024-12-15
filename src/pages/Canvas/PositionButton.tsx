@@ -15,7 +15,7 @@ const PositionButton: React.FC<Props> = ({
   return (
     <button className={styles.container} onClick={resetPosition}>
       <p className={styles.text}>
-        x:{position.x - origin.x} y:{position.y - origin.y}
+        x:{origin.x - position.x} y:{position.y - origin.y}
       </p>
     </button>
   );

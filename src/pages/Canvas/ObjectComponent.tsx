@@ -37,7 +37,7 @@ type Props = {
   object: ObjectModel;
   scale: number;
   position: PositionModel;
-  isSelected: boolean;
+  isAdmin: boolean;
   setSelectedObjectId: React.Dispatch<React.SetStateAction<string | null>>;
   deleteObject: (id: string) => void;
   updateObject: (object: ObjectModel) => void;
@@ -47,27 +47,47 @@ const ObjectComponent: React.FC<Props> = ({
   object: value,
   scale,
   position,
-  isSelected: valueIsSelected,
+  isAdmin,
   setSelectedObjectId,
   deleteObject,
   updateObject,
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [object, setObject] = useState<ObjectModel>(value);
-  const [isSelected, setIsSelected] = useState(valueIsSelected);
+  const [isSelected, setIsSelected] = useState(value.id === "");
   const [isChanged, setIsChanged] = useState(false);
   const [selectedSubTask, setSelectedSubTask] = useState<
     "size" | "color" | null
   >(null);
 
   const handleMouseDown = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-
     if (object.disabled) {
       return;
     }
-    // 소유주는 언제나 선택 가능 - localStorage에 저장된 토큰 사용하여 검증
-    // 소유주가 확인 전 혹은 5분 이내에는 선택 가능 - 작성자 비밀번호 필요
+
+    e.stopPropagation();
+
+    const isExpired =
+      new Date().getTime() - new Date(object.createdAt).getTime() >
+      10 * 60 * 1000;
+
+    if (!isAdmin && isExpired && object.id !== "") {
+      return;
+    }
+
+    let hasHistory = false;
+
+    const historyObjectIds = sessionStorage.getItem("history");
+    if (historyObjectIds) {
+      const objectIds = JSON.parse(historyObjectIds);
+      if (objectIds.includes(object.id)) {
+        hasHistory = true;
+      }
+    }
+
+    if (!isAdmin && !hasHistory && object.id !== "") {
+      return;
+    }
 
     if (!isSelected) {
       setIsSelected(true);
@@ -169,11 +189,17 @@ const ObjectComponent: React.FC<Props> = ({
   };
 
   const handleDelete = () => {
-    // 소유주는 언제나 삭제 가능 - localStorage에 저장된 토큰 사용하여 검증
-    // 소유주가 확인 전 혹은 5분 이내에는 삭제 가능 - 작성자 비밀번호 필요
-
-    // TODO : 삭제 확인 모달 추가
-    // TODO : DB에서 삭제하는 로직 추가
+    if (object.id !== "") {
+      // TODO : DB에서 삭제하는 로직 추가
+      sessionStorage.setItem(
+        "objects",
+        JSON.stringify(
+          JSON.parse(sessionStorage.getItem("objects") || "[]").filter(
+            (obj: any) => obj.id !== object.id
+          )
+        )
+      );
+    }
     deleteObject(object.id);
     setSelectedObjectId(null);
     setIsSelected(false);
@@ -187,6 +213,7 @@ const ObjectComponent: React.FC<Props> = ({
           prev.width *
           ((prev.data as ImageInfo).height / (prev.data as ImageInfo).width),
       }));
+      return;
     }
 
     if (object.data.type === "sticker") {
@@ -197,6 +224,7 @@ const ObjectComponent: React.FC<Props> = ({
           ((prev.data as StickerInfo).height /
             (prev.data as StickerInfo).width),
       }));
+      return;
     }
   };
 
@@ -207,21 +235,85 @@ const ObjectComponent: React.FC<Props> = ({
     setSelectedObjectId(null);
   };
 
-  const handleSave = () => {
-    setIsSelected(false);
-    setSelectedObjectId(null);
+  const handleBackdropMouseDown = (e: React.MouseEvent) => {
+    let mouseMovedCount = 0;
+    const onMouseMove = () => {
+      mouseMovedCount++;
+    };
 
-    if (object.data.type === "text" && object.data.text === "") {
-      // TODO : DB에서 삭제하는 로직 추가
-      deleteObject(object.id);
-      return;
-    }
+    const onMouseUp = () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
 
-    if (!isChanged) {
-      return;
-    }
+      if (mouseMovedCount > 5) {
+        return;
+      }
 
-    // TODO : DB에 저장하는 로직 추가
+      setIsSelected(false);
+      setSelectedObjectId(null);
+
+      if (
+        object.id !== "" &&
+        object.data.type === "text" &&
+        object.data.text === ""
+      ) {
+        // TODO : DB에서 삭제하는 로직 추가
+        sessionStorage.setItem(
+          "objects",
+          JSON.stringify(
+            JSON.parse(sessionStorage.getItem("objects") || "[]").filter(
+              (obj: any) => obj.id !== object.id
+            )
+          )
+        );
+        deleteObject(object.id);
+        return;
+      }
+
+      if (!isChanged && object.id !== "") {
+        return;
+      }
+
+      if (object.id === "") {
+        // TODO : DB에 저장하는 로직 추가
+        // TODO : DB에서 새로운 id를 받아오는 로직 추가
+        const insertedId = new Date().getTime().toString();
+
+        sessionStorage.setItem(
+          "objects",
+          JSON.stringify(
+            JSON.parse(sessionStorage.getItem("objects") || "[]").concat({
+              ...object,
+              id: insertedId,
+            })
+          )
+        );
+        sessionStorage.setItem(
+          "history",
+          JSON.stringify(
+            JSON.parse(sessionStorage.getItem("history") || "[]").concat(
+              insertedId
+            )
+          )
+        );
+        updateObject({ ...object, id: insertedId });
+        // setObject((prev) => ({ ...prev, id: insertedId }));
+        return;
+      }
+
+      // TODO : DB에서 업데이트하는 로직 추가
+      sessionStorage.setItem(
+        "objects",
+        JSON.stringify(
+          JSON.parse(sessionStorage.getItem("objects") || "[]").map(
+            (obj: any) => (obj.id === object.id ? object : obj)
+          )
+        )
+      );
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp, { once: true });
   };
 
   const handleTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -305,7 +397,12 @@ const ObjectComponent: React.FC<Props> = ({
 
   return (
     <>
-      {isSelected && <div className={styles.backdrop} onClick={handleSave} />}
+      {isSelected && (
+        <div
+          className={styles.backdrop}
+          onMouseDown={handleBackdropMouseDown}
+        />
+      )}
       <div
         key={object.id}
         onMouseDown={handleMouseDown}
