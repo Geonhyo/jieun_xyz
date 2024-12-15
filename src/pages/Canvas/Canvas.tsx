@@ -12,14 +12,16 @@ import { PositionModel } from "../../models/position";
 import ScaleButton from "./ScaleButton";
 import ObjectComponent from "./ObjectComponent";
 import PositionButton from "./PositionButton";
-import stickers from "../../stickers.json";
+import LoginButton from "./LoginButton";
+import LoginModal from "./LoginModal";
 
 const originX = window.innerWidth / 2;
 const originY = window.innerHeight / 2;
 
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
-
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [isLoginModalOpened, setIsLoginModalOpened] = useState<boolean>(false);
   const [scale, setScale] = React.useState<number>(1);
   const [position, setPosition] = useState<PositionModel>({
     x: originX,
@@ -177,6 +179,23 @@ const Canvas: React.FC = () => {
     );
   };
 
+  const handleLoginModalClose = () => {
+    setIsLoginModalOpened(false);
+  };
+
+  const handleLoginModalOpen = () => {
+    setIsLoginModalOpened(true);
+  };
+
+  const handleLoginSubmitted = (code: string) => {
+    if (code === process.env.ADMIN_CODE) {
+      setIsAdmin(true);
+      setIsLoginModalOpened(false);
+    } else {
+      alert("비밀 코드가 올바르지 않습니다.");
+    }
+  };
+
   return (
     <main
       id="canvas"
@@ -212,6 +231,7 @@ const Canvas: React.FC = () => {
             resetPosition={handleResetPosition}
           />
           <BackButton />
+          <LoginButton openLoginModal={handleLoginModalOpen} />
           <CreateButton
             addImage={handleAddImage}
             addText={handleAddText}
@@ -219,7 +239,12 @@ const Canvas: React.FC = () => {
           />
         </>
       )}
-      {}
+      {isLoginModalOpened && (
+        <LoginModal
+          onClose={handleLoginModalClose}
+          onSubmit={handleLoginSubmitted}
+        />
+      )}
     </main>
   );
 };

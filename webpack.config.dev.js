@@ -1,4 +1,5 @@
 const path = require("path");
+const DotEnv = require("dotenv-webpack");
 
 module.exports = {
   mode: "development",
@@ -10,6 +11,9 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"], // 처리할 파일 확장자
   },
+  plugins: [
+    new DotEnv(), // .env 파일 로드
+  ],
   module: {
     rules: [
       {
