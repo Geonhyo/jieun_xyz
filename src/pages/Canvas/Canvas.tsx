@@ -20,7 +20,6 @@ const originY = window.innerHeight / 2;
 
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isLoginModalOpened, setIsLoginModalOpened] = useState<boolean>(false);
   const [scale, setScale] = React.useState<number>(1);
   const [position, setPosition] = useState<PositionModel>({
@@ -197,7 +196,7 @@ const Canvas: React.FC = () => {
 
   const handleLoginSubmitted = (code: string) => {
     if (code === process.env.ADMIN_CODE) {
-      setIsAdmin(true);
+      sessionStorage.setItem("role", "master");
       setIsLoginModalOpened(false);
     } else {
       alert("비밀 코드가 올바르지 않습니다.");
@@ -223,8 +222,6 @@ const Canvas: React.FC = () => {
             scale={scale}
             position={position}
             object={object}
-            // isSelected={object.isSelected}
-            isAdmin={isAdmin}
             deleteObject={handleObjectDeleted}
             setSelectedObjectId={setSelectedObjectId}
             updateObject={handleObjectUpdated}

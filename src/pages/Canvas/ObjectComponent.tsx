@@ -37,7 +37,6 @@ type Props = {
   object: ObjectModel;
   scale: number;
   position: PositionModel;
-  isAdmin: boolean;
   setSelectedObjectId: React.Dispatch<React.SetStateAction<string | null>>;
   deleteObject: (id: string) => void;
   updateObject: (object: ObjectModel) => void;
@@ -47,7 +46,6 @@ const ObjectComponent: React.FC<Props> = ({
   object: value,
   scale,
   position,
-  isAdmin,
   setSelectedObjectId,
   deleteObject,
   updateObject,
@@ -66,6 +64,8 @@ const ObjectComponent: React.FC<Props> = ({
     }
 
     e.stopPropagation();
+
+    const isAdmin = sessionStorage.getItem("role") === "master";
 
     const isExpired =
       new Date().getTime() - new Date(object.createdAt).getTime() >
@@ -446,6 +446,7 @@ const ObjectComponent: React.FC<Props> = ({
             rows={1}
             placeholder="텍스트를 입력하세요"
             autoFocus={isSelected}
+            disabled={object.disabled}
             style={{
               maxWidth: "100%",
               width: "100%",
