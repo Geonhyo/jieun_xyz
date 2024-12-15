@@ -1,6 +1,7 @@
 const path = require("path");
 const DotEnv = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -21,6 +22,17 @@ module.exports = {
       inject: true, // 번들 파일 자동 삽입
     }),
     new DotEnv(), // .env 파일 로드
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "public"), // 복사할 폴더
+          to: path.resolve(__dirname, "build"), // 복사될 위치
+          globOptions: {
+            ignore: ["**/index.html"], // index.html 제외 (이미 HtmlWebpackPlugin에서 처리)
+          },
+        },
+      ],
+    }),
   ],
   module: {
     rules: [
