@@ -1,12 +1,13 @@
 const path = require("path");
 
 module.exports = {
-  mode: "production", // Production 모드 활성화
+  mode: "production",
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
-    clean: true, // 기존 번들 삭제 후 새로 생성
+    filename: "[name].[contenthash].js",
+    chunkFilename: "[name].[contenthash].js",
+    clean: true,
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
