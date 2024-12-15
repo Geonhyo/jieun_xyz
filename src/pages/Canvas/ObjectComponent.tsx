@@ -58,7 +58,7 @@ const ObjectComponent: React.FC<Props> = ({
     "size" | "color" | null
   >(null);
 
-  const handleMouseDown = async (e: React.MouseEvent) => {
+  const handleMouseDown = async (e: React.MouseEvent | React.TouchEvent) => {
     if (object.disabled) {
       return;
     }
@@ -94,15 +94,31 @@ const ObjectComponent: React.FC<Props> = ({
       setSelectedObjectId(object.id);
     }
 
-    const initX = e.pageX;
-    const initY = e.pageY;
+    const initX = (
+      e.type === "mousedown"
+        ? (e as React.MouseEvent)
+        : (e as React.TouchEvent).touches[0]
+    ).pageX;
+    const initY = (
+      e.type === "mousedown"
+        ? (e as React.MouseEvent)
+        : (e as React.TouchEvent).touches[0]
+    ).pageY;
 
-    const mouseMoveHandler = (e: MouseEvent) => {
+    const mouseMoveHandler = (e: MouseEvent | TouchEvent) => {
       if (!isChanged) {
         setIsChanged(true);
       }
-      const dx = e.pageX - initX;
-      const dy = e.pageY - initY;
+      const dx =
+        (e.type === "mousemove"
+          ? (e as MouseEvent)
+          : (e as TouchEvent).touches[0]
+        ).pageX - initX;
+      const dy =
+        (e.type === "mousemove"
+          ? (e as MouseEvent)
+          : (e as TouchEvent).touches[0]
+        ).pageY - initY;
       setObject((prev) => ({
         ...prev,
         x: object.x + dx / scale,
@@ -112,25 +128,46 @@ const ObjectComponent: React.FC<Props> = ({
 
     const mouseUpHandler = () => {
       window.removeEventListener("mousemove", mouseMoveHandler);
+      window.removeEventListener("mouseup", mouseUpHandler);
+      window.removeEventListener("touchmove", mouseMoveHandler);
+      window.removeEventListener("touchend", mouseUpHandler);
 
       updateObject(object);
     };
 
     window.addEventListener("mousemove", mouseMoveHandler);
     window.addEventListener("mouseup", mouseUpHandler, { once: true });
+    window.addEventListener("touchmove", mouseMoveHandler);
+    window.addEventListener("touchend", mouseUpHandler, { once: true });
   };
 
-  const handleResizeMouseDown = (e: React.MouseEvent) => {
+  const handleResizeMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
-    const initX = e.pageX;
-    const initY = e.pageY;
+    const initX = (
+      e.type === "mousedown"
+        ? (e as React.MouseEvent)
+        : (e as React.TouchEvent).touches[0]
+    ).pageX;
+    const initY = (
+      e.type === "mousedown"
+        ? (e as React.MouseEvent)
+        : (e as React.TouchEvent).touches[0]
+    ).pageY;
 
-    const mouseMoveHandler = (e: MouseEvent) => {
+    const mouseMoveHandler = (e: MouseEvent | TouchEvent) => {
       if (!isChanged) {
         setIsChanged(true);
       }
-      const dx = e.pageX - initX;
-      const dy = e.pageY - initY;
+      const dx =
+        (e.type === "mousemove"
+          ? (e as MouseEvent)
+          : (e as TouchEvent).touches[0]
+        ).pageX - initX;
+      const dy =
+        (e.type === "mousemove"
+          ? (e as MouseEvent)
+          : (e as TouchEvent).touches[0]
+        ).pageY - initY;
 
       const localDx =
         dx * Math.cos(object.rotation) + dy * Math.sin(object.rotation);
@@ -152,25 +189,41 @@ const ObjectComponent: React.FC<Props> = ({
 
     const mouseUpHandler = () => {
       window.removeEventListener("mousemove", mouseMoveHandler);
+      window.removeEventListener("mouseup", mouseUpHandler);
+      window.removeEventListener("touchmove", mouseMoveHandler);
+      window.removeEventListener("touchend", mouseUpHandler);
 
       updateObject(object);
     };
 
     window.addEventListener("mousemove", mouseMoveHandler);
     window.addEventListener("mouseup", mouseUpHandler, { once: true });
+    window.addEventListener("touchmove", mouseMoveHandler);
+    window.addEventListener("touchend", mouseUpHandler, { once: true });
   };
 
-  const handleRotateMouseDown = (e: React.MouseEvent) => {
+  const handleRotateMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
     const defaultAngle = Math.atan2(object.height, object.width);
 
-    const mouseMoveHandler = (e: MouseEvent) => {
+    const mouseMoveHandler = (e: MouseEvent | TouchEvent) => {
       if (!isChanged) {
         setIsChanged(true);
       }
       const angle = Math.atan2(
-        e.pageY - object.y * scale - position.y,
-        e.pageX - object.x * scale - position.x
+        (e.type === "mousemove"
+          ? (e as MouseEvent)
+          : (e as TouchEvent).touches[0]
+        ).pageY -
+          object.y * scale -
+          position.y,
+
+        (e.type === "mousemove"
+          ? (e as MouseEvent)
+          : (e as TouchEvent).touches[0]
+        ).pageX -
+          object.x * scale -
+          position.x
       );
       setObject((prev) => ({
         ...prev,
@@ -180,12 +233,17 @@ const ObjectComponent: React.FC<Props> = ({
 
     const mouseUpHandler = () => {
       window.removeEventListener("mousemove", mouseMoveHandler);
+      window.removeEventListener("mouseup", mouseUpHandler);
+      window.removeEventListener("touchmove", mouseMoveHandler);
+      window.removeEventListener("touchend", mouseUpHandler);
 
       updateObject(object);
     };
 
     window.addEventListener("mousemove", mouseMoveHandler);
     window.addEventListener("mouseup", mouseUpHandler, { once: true });
+    window.addEventListener("touchmove", mouseMoveHandler);
+    window.addEventListener("touchend", mouseUpHandler, { once: true });
   };
 
   const handleDelete = () => {
@@ -235,7 +293,7 @@ const ObjectComponent: React.FC<Props> = ({
     setSelectedObjectId(null);
   };
 
-  const handleBackdropMouseDown = (e: React.MouseEvent) => {
+  const handleBackdropMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
     let mouseMovedCount = 0;
     const onMouseMove = () => {
       mouseMovedCount++;
@@ -244,6 +302,8 @@ const ObjectComponent: React.FC<Props> = ({
     const onMouseUp = () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("touchmove", onMouseMove);
+      window.removeEventListener("touchend", onMouseUp);
 
       if (mouseMovedCount > 5) {
         return;
@@ -314,6 +374,8 @@ const ObjectComponent: React.FC<Props> = ({
 
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp, { once: true });
+    window.addEventListener("touchmove", onMouseMove);
+    window.addEventListener("touchend", onMouseUp, { once: true });
   };
 
   const handleTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

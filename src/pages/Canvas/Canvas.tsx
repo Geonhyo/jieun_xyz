@@ -63,17 +63,33 @@ const Canvas: React.FC = () => {
     setPosition({ x: originX, y: originY });
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    const initX = e.clientX;
-    const initY = e.clientY;
+  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+    const initX = (
+      e.type === "mousedown"
+        ? (e as React.MouseEvent)
+        : (e as React.TouchEvent).touches[0]
+    ).clientX;
+    const initY = (
+      e.type === "mousedown"
+        ? (e as React.MouseEvent)
+        : (e as React.TouchEvent).touches[0]
+    ).clientY;
 
     if (canvasRef.current) {
       canvasRef.current.style.cursor = "grabbing";
     }
 
-    const onMouseMove = (event: MouseEvent) => {
-      const dx = event.clientX - initX;
-      const dy = event.clientY - initY;
+    const onMouseMove = (event: MouseEvent | TouchEvent) => {
+      const dx =
+        (e.type === "mousemove"
+          ? (event as MouseEvent)
+          : (event as TouchEvent).touches[0]
+        ).clientX - initX;
+      const dy =
+        (e.type === "mousemove"
+          ? (event as MouseEvent)
+          : (event as TouchEvent).touches[0]
+        ).clientY - initY;
       setPosition({
         x: position.x + dx,
         y: position.y + dy,
@@ -85,10 +101,15 @@ const Canvas: React.FC = () => {
         canvasRef.current.style.cursor = "grab";
       }
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("touchmove", onMouseMove);
+      window.removeEventListener("touchend", onMouseUp);
     };
 
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp, { once: true });
+    window.addEventListener("touchmove", onMouseMove);
+    window.addEventListener("touchend", onMouseUp, { once: true });
   };
 
   // 확대/축소
@@ -209,6 +230,7 @@ const Canvas: React.FC = () => {
       ref={canvasRef}
       className={styles.wrapper}
       onMouseDown={handleMouseDown}
+      onTouchStart={handleMouseDown}
       onWheel={handleWheel}
       style={{
         backgroundPosition: `${position.x}px ${position.y}px`, // 배경 위치 조정
