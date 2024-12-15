@@ -195,7 +195,7 @@ const Canvas: React.FC = () => {
   };
 
   const handleLoginSubmitted = (code: string) => {
-    if (code === process.env.ADMIN_CODE) {
+    if (code === process.env.REACT_APP_ADMIN_CODE) {
       sessionStorage.setItem("role", "master");
       setIsLoginModalOpened(false);
     } else {
