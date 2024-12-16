@@ -63,53 +63,93 @@ const Canvas: React.FC = () => {
     setPosition({ x: originX, y: originY });
   };
 
-  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
-    const initX = (
-      e.type === "mousedown"
-        ? (e as React.MouseEvent)
-        : (e as React.TouchEvent).touches[0]
-    ).clientX;
-    const initY = (
-      e.type === "mousedown"
-        ? (e as React.MouseEvent)
-        : (e as React.TouchEvent).touches[0]
-    ).clientY;
+  const handleTap = (e: React.MouseEvent | React.TouchEvent) => {
+    if (e.type === "mousedown") {
+      onMouseTap(e as React.MouseEvent);
+      return;
+    }
+
+    if (e.type === "touchstart") {
+      onTouchTap(e as React.TouchEvent);
+      return;
+    }
+  };
+
+  const onMouseTap = (e: React.MouseEvent) => {
+    const initX = e.clientX;
+    const initY = e.clientY;
 
     if (canvasRef.current) {
       canvasRef.current.style.cursor = "grabbing";
     }
 
-    const onMouseMove = (event: MouseEvent | TouchEvent) => {
-      const dx =
-        (e.type === "mousemove"
-          ? (event as MouseEvent)
-          : (event as TouchEvent).touches[0]
-        ).clientX - initX;
-      const dy =
-        (e.type === "mousemove"
-          ? (event as MouseEvent)
-          : (event as TouchEvent).touches[0]
-        ).clientY - initY;
+    const onMove = (event: MouseEvent) => {
+      const dx = event.clientX - initX;
+      const dy = event.clientY - initY;
       setPosition({
         x: position.x + dx,
         y: position.y + dy,
       });
     };
 
-    const onMouseUp = () => {
+    const onEnd = () => {
       if (canvasRef.current) {
         canvasRef.current.style.cursor = "grab";
       }
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
-      window.removeEventListener("touchmove", onMouseMove);
-      window.removeEventListener("touchend", onMouseUp);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
     };
 
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp, { once: true });
-    window.addEventListener("touchmove", onMouseMove);
-    window.addEventListener("touchend", onMouseUp, { once: true });
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onEnd, { once: true });
+  };
+
+  const onTouchTap = (e: React.TouchEvent) => {
+    const isMultiTouch = e["touches"].length > 1;
+
+    const firstX = e["touches"][0].clientX;
+    const firstY = e["touches"][0].clientY;
+    const secondX = isMultiTouch ? e["touches"][1].clientX : firstX;
+    const secondY = isMultiTouch ? e["touches"][1].clientY : firstY;
+
+    if (canvasRef.current) {
+      canvasRef.current.style.cursor = "grabbing";
+    }
+
+    const onMove = (event: TouchEvent) => {
+      const firstDx = event["touches"][0].clientX - firstX;
+      const firstDy = event["touches"][0].clientY - firstY;
+      const secondDx = isMultiTouch
+        ? event["touches"][1].clientX - secondX
+        : firstDx;
+      const secondDy = isMultiTouch
+        ? event["touches"][1].clientY - secondY
+        : firstDy;
+      // Move
+      setPosition({
+        x: position.x + (firstDx + secondDx) / 2,
+        y: position.y + (firstDy + secondDy) / 2,
+      });
+
+      if (isMultiTouch) {
+        // Zoom
+        const delta = Math.sqrt(
+          Math.pow(firstDx - secondDx, 2) + Math.pow(firstDy - secondDy, 2)
+        );
+        setScale((prev) => Math.max(0.1, Math.min(prev + delta, 5)));
+      }
+    };
+
+    const onEnd = () => {
+      if (canvasRef.current) {
+        canvasRef.current.style.cursor = "grab";
+      }
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
+    };
+
+    window.addEventListener("touchmove", onMove);
+    window.addEventListener("touchend", onEnd, { once: true });
   };
 
   // 확대/축소
@@ -229,8 +269,8 @@ const Canvas: React.FC = () => {
       id="canvas"
       ref={canvasRef}
       className={styles.wrapper}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleMouseDown}
+      onMouseDown={handleTap}
+      onTouchStart={handleTap}
       onWheel={handleWheel}
       style={{
         backgroundPosition: `${position.x}px ${position.y}px`, // 배경 위치 조정

@@ -58,7 +58,7 @@ const ObjectComponent: React.FC<Props> = ({
     "size" | "color" | null
   >(null);
 
-  const handleMouseDown = async (e: React.MouseEvent | React.TouchEvent) => {
+  const handleTap = async (e: React.MouseEvent | React.TouchEvent) => {
     if (object.disabled) {
       return;
     }
@@ -94,31 +94,27 @@ const ObjectComponent: React.FC<Props> = ({
       setSelectedObjectId(object.id);
     }
 
-    const initX = (
-      e.type === "mousedown"
-        ? (e as React.MouseEvent)
-        : (e as React.TouchEvent).touches[0]
-    ).pageX;
-    const initY = (
-      e.type === "mousedown"
-        ? (e as React.MouseEvent)
-        : (e as React.TouchEvent).touches[0]
-    ).pageY;
+    if (e.type === "mousedown") {
+      onMouseTap(e as React.MouseEvent);
+      return;
+    }
 
-    const mouseMoveHandler = (e: MouseEvent | TouchEvent) => {
+    if (e.type === "touchstart") {
+      onTouchTap(e as React.TouchEvent);
+      return;
+    }
+  };
+
+  const onMouseTap = (e: React.MouseEvent) => {
+    const initX = e.pageX;
+    const initY = e.pageY;
+
+    const onMove = (e: MouseEvent) => {
       if (!isChanged) {
         setIsChanged(true);
       }
-      const dx =
-        (e.type === "mousemove"
-          ? (e as MouseEvent)
-          : (e as TouchEvent).touches[0]
-        ).pageX - initX;
-      const dy =
-        (e.type === "mousemove"
-          ? (e as MouseEvent)
-          : (e as TouchEvent).touches[0]
-        ).pageY - initY;
+      const dx = e.pageX - initX;
+      const dy = e.pageY - initY;
       setObject((prev) => ({
         ...prev,
         x: object.x + dx / scale,
@@ -126,48 +122,87 @@ const ObjectComponent: React.FC<Props> = ({
       }));
     };
 
-    const mouseUpHandler = () => {
-      window.removeEventListener("mousemove", mouseMoveHandler);
-      window.removeEventListener("mouseup", mouseUpHandler);
-      window.removeEventListener("touchmove", mouseMoveHandler);
-      window.removeEventListener("touchend", mouseUpHandler);
+    const onEnd = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
 
       updateObject(object);
     };
 
-    window.addEventListener("mousemove", mouseMoveHandler);
-    window.addEventListener("mouseup", mouseUpHandler, { once: true });
-    window.addEventListener("touchmove", mouseMoveHandler);
-    window.addEventListener("touchend", mouseUpHandler, { once: true });
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onEnd, { once: true });
   };
 
-  const handleResizeMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
-    e.stopPropagation();
-    const initX = (
-      e.type === "mousedown"
-        ? (e as React.MouseEvent)
-        : (e as React.TouchEvent).touches[0]
-    ).pageX;
-    const initY = (
-      e.type === "mousedown"
-        ? (e as React.MouseEvent)
-        : (e as React.TouchEvent).touches[0]
-    ).pageY;
+  const onTouchTap = (e: React.TouchEvent) => {
+    const isMultiTouch = e["touches"].length > 1;
 
-    const mouseMoveHandler = (e: MouseEvent | TouchEvent) => {
+    const firstX = e.touches[0].pageX;
+    const firstY = e.touches[0].pageY;
+    const secondX = isMultiTouch ? e.touches[1].pageX : firstX;
+    const secondY = isMultiTouch ? e.touches[1].pageY : firstY;
+
+    const onMove = (e: TouchEvent) => {
       if (!isChanged) {
         setIsChanged(true);
       }
-      const dx =
-        (e.type === "mousemove"
-          ? (e as MouseEvent)
-          : (e as TouchEvent).touches[0]
-        ).pageX - initX;
-      const dy =
-        (e.type === "mousemove"
-          ? (e as MouseEvent)
-          : (e as TouchEvent).touches[0]
-        ).pageY - initY;
+
+      const firstDx = e.touches[0].pageX - firstX;
+      const firstDy = e.touches[0].pageY - firstY;
+      const secondDx = isMultiTouch ? e.touches[1].pageX - secondX : firstDx;
+      const secondDy = isMultiTouch ? e.touches[1].pageY - secondY : firstDy;
+
+      setObject((prev) => ({
+        ...prev,
+        x: object.x + (firstDx + secondDx) / (2 * scale),
+        y: object.y + (firstDy + secondDy) / (2 * scale),
+        width: isMultiTouch
+          ? Math.max(32, object.width + (firstDx + secondDx) / scale)
+          : prev.width,
+        height: isMultiTouch
+          ? Math.max(32, object.height + (firstDy + secondDy) / scale)
+          : prev.height,
+        rotation: isMultiTouch
+          ? Math.atan2(secondY - firstY, secondX - firstX)
+          : prev.rotation,
+      }));
+    };
+
+    const onEnd = () => {
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
+
+      updateObject(object);
+    };
+
+    window.addEventListener("touchmove", onMove);
+    window.addEventListener("touchend", onEnd, { once: true });
+  };
+
+  const handleTapResize = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+
+    if (e.type === "mousedown") {
+      onMouseTapResize(e as React.MouseEvent);
+      return;
+    }
+
+    if (e.type === "touchstart") {
+      onTouchTapResize(e as React.TouchEvent);
+      return;
+    }
+  };
+
+  const onMouseTapResize = (e: React.MouseEvent) => {
+    const initX = e.pageX;
+    const initY = e.pageY;
+
+    const onMove = (e: MouseEvent) => {
+      e.stopPropagation();
+      if (!isChanged) {
+        setIsChanged(true);
+      }
+      const dx = e.pageX - initX;
+      const dy = e.pageY - initY;
 
       const localDx =
         dx * Math.cos(object.rotation) + dy * Math.sin(object.rotation);
@@ -187,43 +222,84 @@ const ObjectComponent: React.FC<Props> = ({
       }
     };
 
-    const mouseUpHandler = () => {
-      window.removeEventListener("mousemove", mouseMoveHandler);
-      window.removeEventListener("mouseup", mouseUpHandler);
-      window.removeEventListener("touchmove", mouseMoveHandler);
-      window.removeEventListener("touchend", mouseUpHandler);
+    const onEnd = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
 
       updateObject(object);
     };
 
-    window.addEventListener("mousemove", mouseMoveHandler);
-    window.addEventListener("mouseup", mouseUpHandler, { once: true });
-    window.addEventListener("touchmove", mouseMoveHandler);
-    window.addEventListener("touchend", mouseUpHandler, { once: true });
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onEnd, { once: true });
   };
 
-  const handleRotateMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+  const onTouchTapResize = (e: React.TouchEvent) => {
+    const initX = e.touches[0].pageX;
+    const initY = e.touches[0].pageY;
+
+    const onMove = (e: TouchEvent) => {
+      e.stopPropagation();
+      if (!isChanged) {
+        setIsChanged(true);
+      }
+      const dx = e["touches"][0].pageX - initX;
+      const dy = e["touches"][0].pageY - initY;
+
+      const localDx =
+        dx * Math.cos(object.rotation) + dy * Math.sin(object.rotation);
+      const localDy =
+        dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
+
+      setObject((prev) => ({
+        ...prev,
+        width: Math.max(32, object.width + (localDx * 2) / scale), // 최소 크기 제한
+        height: Math.max(32, object.height + (localDy * 2) / scale), // 최소 크기 제한
+      }));
+
+      if (object.data.type === "text" && textareaRef.current) {
+        // 높이를 초기화한 후 scrollHeight로 다시 설정
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    };
+
+    const onEnd = () => {
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
+
+      updateObject(object);
+    };
+
+    window.addEventListener("touchmove", onMove);
+    window.addEventListener("touchend", onEnd, { once: true });
+  };
+
+  const handleTapRotation = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
+
+    if (e.type === "mousedown") {
+      onMouseTapRotation(e as React.MouseEvent);
+      return;
+    }
+
+    if (e.type === "touchstart") {
+      onTouchTapRotation(e as React.TouchEvent);
+      return;
+    }
+  };
+
+  const onMouseTapRotation = (e: React.MouseEvent) => {
     const defaultAngle = Math.atan2(object.height, object.width);
 
-    const mouseMoveHandler = (e: MouseEvent | TouchEvent) => {
+    const onMove = (e: MouseEvent) => {
+      e.stopPropagation();
       if (!isChanged) {
         setIsChanged(true);
       }
       const angle = Math.atan2(
-        (e.type === "mousemove"
-          ? (e as MouseEvent)
-          : (e as TouchEvent).touches[0]
-        ).pageY -
-          object.y * scale -
-          position.y,
+        e.pageY - object.y * scale - position.y,
 
-        (e.type === "mousemove"
-          ? (e as MouseEvent)
-          : (e as TouchEvent).touches[0]
-        ).pageX -
-          object.x * scale -
-          position.x
+        e.pageX - object.x * scale - position.x
       );
       setObject((prev) => ({
         ...prev,
@@ -231,19 +307,44 @@ const ObjectComponent: React.FC<Props> = ({
       }));
     };
 
-    const mouseUpHandler = () => {
-      window.removeEventListener("mousemove", mouseMoveHandler);
-      window.removeEventListener("mouseup", mouseUpHandler);
-      window.removeEventListener("touchmove", mouseMoveHandler);
-      window.removeEventListener("touchend", mouseUpHandler);
+    const onEnd = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
 
       updateObject(object);
     };
 
-    window.addEventListener("mousemove", mouseMoveHandler);
-    window.addEventListener("mouseup", mouseUpHandler, { once: true });
-    window.addEventListener("touchmove", mouseMoveHandler);
-    window.addEventListener("touchend", mouseUpHandler, { once: true });
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onEnd, { once: true });
+  };
+
+  const onTouchTapRotation = (e: React.TouchEvent) => {
+    const defaultAngle = Math.atan2(object.height, object.width);
+
+    const onMove = (e: TouchEvent) => {
+      e.stopPropagation();
+      if (!isChanged) {
+        setIsChanged(true);
+      }
+      const angle = Math.atan2(
+        e["touches"][0].pageY - object.y * scale - position.y,
+        e["touches"][0].pageX - object.x * scale - position.x
+      );
+      setObject((prev) => ({
+        ...prev,
+        rotation: angle + defaultAngle,
+      }));
+    };
+
+    const onEnd = () => {
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
+
+      updateObject(object);
+    };
+
+    window.addEventListener("touchmove", onMove);
+    window.addEventListener("touchend", onEnd, { once: true });
   };
 
   const handleDelete = () => {
@@ -293,19 +394,19 @@ const ObjectComponent: React.FC<Props> = ({
     setSelectedObjectId(null);
   };
 
-  const handleBackdropMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
-    let mouseMovedCount = 0;
-    const onMouseMove = () => {
-      mouseMovedCount++;
+  const handleTapBackdrop = (e: React.MouseEvent | React.TouchEvent) => {
+    let movedCount = 0;
+    const onMove = () => {
+      movedCount++;
     };
 
-    const onMouseUp = () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
-      window.removeEventListener("touchmove", onMouseMove);
-      window.removeEventListener("touchend", onMouseUp);
+    const onEnd = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
 
-      if (mouseMovedCount > 5) {
+      if (movedCount > 5) {
         return;
       }
 
@@ -372,10 +473,10 @@ const ObjectComponent: React.FC<Props> = ({
       );
     };
 
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp, { once: true });
-    window.addEventListener("touchmove", onMouseMove);
-    window.addEventListener("touchend", onMouseUp, { once: true });
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onEnd, { once: true });
+    window.addEventListener("touchmove", onMove);
+    window.addEventListener("touchend", onEnd, { once: true });
   };
 
   const handleTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -460,14 +561,11 @@ const ObjectComponent: React.FC<Props> = ({
   return (
     <>
       {isSelected && (
-        <div
-          className={styles.backdrop}
-          onMouseDown={handleBackdropMouseDown}
-        />
+        <div className={styles.backdrop} onMouseDown={handleTapBackdrop} />
       )}
       <div
         key={object.id}
-        onMouseDown={handleMouseDown}
+        onMouseDown={handleTap}
         className={isSelected ? styles.selectedFrame : styles.frame}
         style={{
           cursor: object.disabled ? "default" : "pointer",
@@ -531,10 +629,7 @@ const ObjectComponent: React.FC<Props> = ({
         )}
         {isSelected && (
           <>
-            <div
-              className={styles.scaleHandle}
-              onMouseDown={handleResizeMouseDown}
-            >
+            <div className={styles.scaleHandle} onMouseDown={handleTapResize}>
               <img
                 className={styles.handleIcon}
                 src="icons/resize.webp"
@@ -543,7 +638,7 @@ const ObjectComponent: React.FC<Props> = ({
             </div>
             <div
               className={styles.rotateHandle}
-              onMouseDown={handleRotateMouseDown}
+              onMouseDown={handleTapRotation}
             >
               <img
                 className={styles.handleIcon}

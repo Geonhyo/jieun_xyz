@@ -12,52 +12,72 @@ const MAX = 100;
 const FontSizeControl: React.FC<Props> = ({ value, onChangeValue }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const handleDrag = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleTap = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
+    document.body.style.pointerEvents = "none";
+    document.body.style.userSelect = "none";
 
-    if (!sliderRef.current) return;
+    if (e.type === "mousedown") {
+      onMouseTap(e as React.MouseEvent);
+      return;
+    }
 
-    const rect = sliderRef.current.getBoundingClientRect();
-    const offsetX =
-      (e.type === "mousedown"
-        ? (e as React.MouseEvent)
-        : (e as React.TouchEvent).touches[0]
-      ).clientX - rect.left; // 슬라이더 기준의 X 위치
-    const percentage = Math.min(Math.max(offsetX / rect.width, 0), 1); // 0~1 사이로 정규화
-    const newValue = Math.round(MIN + percentage * (MAX - MIN)); // 값 계산
-    onChangeValue(newValue);
+    if (e.type === "touchstart") {
+      onTouchTap(e as React.TouchEvent);
+      return;
+    }
   };
 
-  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
-    e.stopPropagation();
-    document.body.style.pointerEvents = "none"; // hover 방지
-    document.body.style.userSelect = "none"; // 텍스트 선택 방지
-    handleDrag(e);
+  const onMouseTap = (e: React.MouseEvent) => {
+    const onMove = (e: MouseEvent | React.MouseEvent) => {
+      e.stopPropagation();
+      if (!sliderRef.current) return;
 
-    const handleMouseMove = (e: MouseEvent | TouchEvent) =>
-      handleDrag(e as unknown as React.MouseEvent | React.TouchEvent);
-
-    const handleMouseUp = () => {
-      document.body.style.pointerEvents = ""; // hover 다시 활성화
-      document.body.style.userSelect = ""; // 텍스트 선택 다시 활성화
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("touchmove", handleMouseMove);
-      window.removeEventListener("touchend", handleMouseUp);
+      const rect = sliderRef.current.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left; //x-position relative to the slider
+      const percentage = Math.min(Math.max(offsetX / rect.width, 0), 1); // Regularize between 0 and 1
+      const newValue = Math.round(MIN + percentage * (MAX - MIN)); // Calculate value
+      onChangeValue(newValue);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp, { once: true });
-    window.addEventListener("touchmove", handleMouseMove);
-    window.addEventListener("touchend", handleMouseUp, { once: true });
+    const onEnd = () => {
+      document.body.style.pointerEvents = "";
+      document.body.style.userSelect = "";
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
+    };
+
+    onMove(e);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onEnd, { once: true });
+  };
+
+  const onTouchTap = (e: React.TouchEvent) => {
+    const onMove = (e: TouchEvent | React.TouchEvent) => {
+      e.stopPropagation();
+      if (!sliderRef.current) return;
+
+      const rect = sliderRef.current.getBoundingClientRect();
+      const offsetX = e["touches"][0].clientX - rect.left; //x-position relative to the slider
+      const percentage = Math.min(Math.max(offsetX / rect.width, 0), 1); // Regularize between 0 and 1
+      const newValue = Math.round(MIN + percentage * (MAX - MIN)); // Calculate value
+      onChangeValue(newValue);
+    };
+
+    const onEnd = () => {
+      document.body.style.pointerEvents = "";
+      document.body.style.userSelect = "";
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
+    };
+
+    onMove(e);
+    window.addEventListener("touchmove", onMove);
+    window.addEventListener("touchend", onEnd, { once: true });
   };
 
   return (
-    <div
-      className={styles.slider}
-      ref={sliderRef}
-      onMouseDown={handleMouseDown}
-    >
+    <div className={styles.slider} ref={sliderRef} onMouseDown={handleTap}>
       <div className={styles.scaleBar} />
       <div
         className={styles.handle}
