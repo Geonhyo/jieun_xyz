@@ -17,9 +17,6 @@ const LoginModal: React.FC<Props> = ({ onClose, onSubmit }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    if (code === "") {
-      return;
-    }
     onSubmit(code);
   };
 
