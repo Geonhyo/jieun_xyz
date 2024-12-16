@@ -106,10 +106,12 @@ const ObjectComponent: React.FC<Props> = ({
   };
 
   const onMouseTap = (e: React.MouseEvent) => {
+    e.stopPropagation();
     const initX = e.pageX;
     const initY = e.pageY;
 
     const onMove = (e: MouseEvent) => {
+      e.stopPropagation();
       if (!isChanged) {
         setIsChanged(true);
       }
@@ -134,7 +136,8 @@ const ObjectComponent: React.FC<Props> = ({
   };
 
   const onTouchTap = (e: React.TouchEvent) => {
-    const isMultiTouch = e["touches"].length > 1;
+    e.stopPropagation();
+    const isMultiTouch = e.touches.length > 1;
 
     const firstX = e.touches[0].pageX;
     const firstY = e.touches[0].pageY;
@@ -142,6 +145,7 @@ const ObjectComponent: React.FC<Props> = ({
     const secondY = isMultiTouch ? e.touches[1].pageY : firstY;
 
     const onMove = (e: TouchEvent) => {
+      e.stopPropagation();
       if (!isChanged) {
         setIsChanged(true);
       }
@@ -155,15 +159,6 @@ const ObjectComponent: React.FC<Props> = ({
         ...prev,
         x: object.x + (firstDx + secondDx) / (2 * scale),
         y: object.y + (firstDy + secondDy) / (2 * scale),
-        width: isMultiTouch
-          ? Math.max(32, object.width + (firstDx + secondDx) / scale)
-          : prev.width,
-        height: isMultiTouch
-          ? Math.max(32, object.height + (firstDy + secondDy) / scale)
-          : prev.height,
-        rotation: isMultiTouch
-          ? Math.atan2(secondY - firstY, secondX - firstX)
-          : prev.rotation,
       }));
     };
 
@@ -193,6 +188,7 @@ const ObjectComponent: React.FC<Props> = ({
   };
 
   const onMouseTapResize = (e: React.MouseEvent) => {
+    e.stopPropagation();
     const initX = e.pageX;
     const initY = e.pageY;
 
@@ -234,6 +230,7 @@ const ObjectComponent: React.FC<Props> = ({
   };
 
   const onTouchTapResize = (e: React.TouchEvent) => {
+    e.stopPropagation();
     const initX = e.touches[0].pageX;
     const initY = e.touches[0].pageY;
 
@@ -242,8 +239,8 @@ const ObjectComponent: React.FC<Props> = ({
       if (!isChanged) {
         setIsChanged(true);
       }
-      const dx = e["touches"][0].pageX - initX;
-      const dy = e["touches"][0].pageY - initY;
+      const dx = e.touches[0].pageX - initX;
+      const dy = e.touches[0].pageY - initY;
 
       const localDx =
         dx * Math.cos(object.rotation) + dy * Math.sin(object.rotation);
@@ -327,8 +324,8 @@ const ObjectComponent: React.FC<Props> = ({
         setIsChanged(true);
       }
       const angle = Math.atan2(
-        e["touches"][0].pageY - object.y * scale - position.y,
-        e["touches"][0].pageX - object.x * scale - position.x
+        e.touches[0].pageY - object.y * scale - position.y,
+        e.touches[0].pageX - object.x * scale - position.x
       );
       setObject((prev) => ({
         ...prev,
@@ -494,12 +491,15 @@ const ObjectComponent: React.FC<Props> = ({
     }
   };
 
-  const handleTextBackdropClicked = (e: React.MouseEvent) => {
+  const handleTextBackdropClicked = (
+    e: React.MouseEvent | React.TouchEvent
+  ) => {
     e.stopPropagation();
     setSelectedSubTask(null);
   };
 
-  const handleTextFamilyClicked = () => {
+  const handleTextFamilyClicked = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
     setObject((prev) => ({
       ...prev,
       data: {
@@ -514,15 +514,19 @@ const ObjectComponent: React.FC<Props> = ({
     setSelectedSubTask(null);
   };
 
-  const handleTextColorClicked = () => {
+  const handleTextColorClicked = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
     setSelectedSubTask("color");
   };
 
-  const handleTextSizeClicked = () => {
+  const handleTextSizeClicked = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
     setSelectedSubTask("size");
   };
 
-  const handleTextWeightClicked = () => {
+  const handleTextWeightClicked = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+
     setSelectedSubTask(null);
     setObject((prev) => ({
       ...prev,
@@ -533,7 +537,8 @@ const ObjectComponent: React.FC<Props> = ({
     }));
   };
 
-  const handleTextColorSelected = (e: React.MouseEvent) => {
+  const handleTextColorSelected = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
     const color = (e.target as HTMLButtonElement).value;
     setObject((prev) => ({
       ...prev,
@@ -561,11 +566,16 @@ const ObjectComponent: React.FC<Props> = ({
   return (
     <>
       {isSelected && (
-        <div className={styles.backdrop} onMouseDown={handleTapBackdrop} />
+        <div
+          className={styles.backdrop}
+          onMouseDown={handleTapBackdrop}
+          onTouchStart={handleTapBackdrop}
+        />
       )}
       <div
         key={object.id}
         onMouseDown={handleTap}
+        onTouchStart={handleTap}
         className={isSelected ? styles.selectedFrame : styles.frame}
         style={{
           cursor: object.disabled ? "default" : "pointer",
@@ -629,7 +639,11 @@ const ObjectComponent: React.FC<Props> = ({
         )}
         {isSelected && (
           <>
-            <div className={styles.scaleHandle} onMouseDown={handleTapResize}>
+            <div
+              className={styles.scaleHandle}
+              onMouseDown={handleTapResize}
+              onTouchStart={handleTapResize}
+            >
               <img
                 className={styles.handleIcon}
                 src="icons/resize.webp"
@@ -639,6 +653,7 @@ const ObjectComponent: React.FC<Props> = ({
             <div
               className={styles.rotateHandle}
               onMouseDown={handleTapRotation}
+              onTouchStart={handleTapRotation}
             >
               <img
                 className={styles.handleIcon}
@@ -683,6 +698,7 @@ const ObjectComponent: React.FC<Props> = ({
                   <div
                     className={styles.backdrop}
                     onMouseDown={handleTextBackdropClicked}
+                    onTouchStart={handleTextBackdropClicked}
                   />
                 )}
 
@@ -690,6 +706,7 @@ const ObjectComponent: React.FC<Props> = ({
                 <button
                   className={styles.taskButton}
                   onMouseDown={handleTextFamilyClicked}
+                  onTouchStart={handleTextFamilyClicked}
                 >
                   <img
                     className={styles.taskIcon}
@@ -700,6 +717,7 @@ const ObjectComponent: React.FC<Props> = ({
                 <button
                   className={styles.taskButton}
                   onMouseDown={handleTextColorClicked}
+                  onTouchStart={handleTextColorClicked}
                 >
                   <img
                     className={styles.taskIcon}
@@ -710,6 +728,7 @@ const ObjectComponent: React.FC<Props> = ({
                 <button
                   className={styles.taskButton}
                   onMouseDown={handleTextSizeClicked}
+                  onTouchStart={handleTextSizeClicked}
                 >
                   <img
                     className={styles.taskIcon}
@@ -720,6 +739,7 @@ const ObjectComponent: React.FC<Props> = ({
                 <button
                   className={styles.taskButton}
                   onMouseDown={handleTextWeightClicked}
+                  onTouchStart={handleTextWeightClicked}
                   style={{
                     backgroundColor: (object.data as TextInfo).bold
                       ? "var(--black)"
@@ -746,6 +766,7 @@ const ObjectComponent: React.FC<Props> = ({
                         }}
                         value={color}
                         onMouseDown={handleTextColorSelected}
+                        onTouchStart={handleTextColorSelected}
                       />
                     ))}
                   </div>

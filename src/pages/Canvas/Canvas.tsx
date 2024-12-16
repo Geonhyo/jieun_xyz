@@ -105,45 +105,49 @@ const Canvas: React.FC = () => {
   };
 
   const onTouchTap = (e: React.TouchEvent) => {
-    const isMultiTouch = e["touches"].length > 1;
+    const isMultiTouch = e.touches.length > 1;
 
-    const firstX = e["touches"][0].clientX;
-    const firstY = e["touches"][0].clientY;
-    const secondX = isMultiTouch ? e["touches"][1].clientX : firstX;
-    const secondY = isMultiTouch ? e["touches"][1].clientY : firstY;
-
-    if (canvasRef.current) {
-      canvasRef.current.style.cursor = "grabbing";
-    }
+    const firstX = e.touches[0].clientX;
+    const firstY = e.touches[0].clientY;
+    const secondX = isMultiTouch ? e.touches[1].clientX : firstX;
+    const secondY = isMultiTouch ? e.touches[1].clientY : firstY;
+    let initDist = isMultiTouch
+      ? Math.sqrt(Math.pow(secondX - firstX, 2) + Math.pow(secondY - firstY, 2))
+      : 0;
 
     const onMove = (event: TouchEvent) => {
-      const firstDx = event["touches"][0].clientX - firstX;
-      const firstDy = event["touches"][0].clientY - firstY;
+      const firstDx = event.touches[0].clientX - firstX;
+      const firstDy = event.touches[0].clientY - firstY;
       const secondDx = isMultiTouch
-        ? event["touches"][1].clientX - secondX
+        ? event.touches[1].clientX - secondX
         : firstDx;
       const secondDy = isMultiTouch
-        ? event["touches"][1].clientY - secondY
+        ? event.touches[1].clientY - secondY
         : firstDy;
+
       // Move
       setPosition({
         x: position.x + (firstDx + secondDx) / 2,
         y: position.y + (firstDy + secondDy) / 2,
       });
 
+      // Scale
       if (isMultiTouch) {
-        // Zoom
-        const delta = Math.sqrt(
-          Math.pow(firstDx - secondDx, 2) + Math.pow(firstDy - secondDy, 2)
+        const newDist = Math.sqrt(
+          Math.pow(event.touches[0].clientX - event.touches[1].clientX, 2) +
+            Math.pow(event.touches[0].clientY - event.touches[1].clientY, 2)
         );
-        setScale((prev) => Math.max(0.1, Math.min(prev + delta, 5)));
+
+        const scaleDelta = newDist / initDist;
+        initDist = newDist;
+
+        setScale((prev) =>
+          Math.max(0.1, Math.min(prev + (scaleDelta - 1) * scale, 5))
+        );
       }
     };
 
     const onEnd = () => {
-      if (canvasRef.current) {
-        canvasRef.current.style.cursor = "grab";
-      }
       window.removeEventListener("touchmove", onMove);
       window.removeEventListener("touchend", onEnd);
     };
