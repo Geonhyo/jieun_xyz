@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CountDown.module.css";
 
+const DDAY = "2024-12-20";
+
 const CountDown: React.FC = () => {
-  const targetDate = new Date("2024-12-21T15:00:00Z"); // 목표 날짜 (2024년 12월 21일 자정)
+  const targetDate = new Date(`${DDAY}T15:00:00Z`);
   // 한국 표준 시를 고려하여 전날 15시로 설정해야 함
 
   // 상태 변수
@@ -36,10 +38,14 @@ const CountDown: React.FC = () => {
     const now = new Date();
     const timeDiff = targetDate.getTime() - now.getTime();
 
+    console.log(timeDiff);
+    console.log(now);
+    console.log(targetDate);
+
     // D-10, D-9 등의 남은 날짜 계산
     if (timeDiff > 86400000) {
       const days = Math.floor(timeDiff / 1000 / 60 / 60 / 24);
-      setDatetimeUntilTarget(`D-${days}`);
+      setDatetimeUntilTarget(`D-${days + 1}`);
 
       return updateOnMidnight();
     }
