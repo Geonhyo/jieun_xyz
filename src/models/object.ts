@@ -34,6 +34,5 @@ export interface ObjectModel {
   height: number;
   data: ImageInfo | TextInfo | StickerInfo;
   disabled: boolean;
-  // isSelected: boolean;
   createdAt: string;
 }

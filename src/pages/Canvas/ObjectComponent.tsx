@@ -8,6 +8,15 @@ import {
 import styles from "./ObjectComponent.module.css";
 import { PositionModel } from "../../models/position";
 import FontSizeControl from "./FontSizeControl";
+import { db, storage } from "../../firebaseConfig";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "@firebase/firestore";
 
 const adminCode = process.env.REACT_APP_ADMIN_CODE;
 
@@ -347,17 +356,18 @@ const ObjectComponent: React.FC<Props> = ({
     window.addEventListener("touchend", onEnd, { once: true });
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (object.id !== "") {
-      // TODO : DB에서 삭제하는 로직 추가
-      sessionStorage.setItem(
-        "objects",
-        JSON.stringify(
-          JSON.parse(sessionStorage.getItem("objects") || "[]").filter(
-            (obj: any) => obj.id !== object.id
-          )
-        )
-      );
+      try {
+        await deleteDoc(doc(db, "canvas", object.id));
+        deleteObject(object.id);
+        setSelectedObjectId(null);
+        setIsSelected(false);
+      } catch (e) {
+        console.error(e);
+        alert("오류가 발생하여 삭제에 실패했습니다.");
+      }
+      return;
     }
     deleteObject(object.id);
     setSelectedObjectId(null);
@@ -404,7 +414,7 @@ const ObjectComponent: React.FC<Props> = ({
       movedCount++;
     };
 
-    const onEnd = () => {
+    const onEnd = async () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onEnd);
       window.removeEventListener("touchmove", onMove);
@@ -425,59 +435,78 @@ const ObjectComponent: React.FC<Props> = ({
         object.data.type === "text" &&
         object.data.text === ""
       ) {
-        // TODO : DB에서 삭제하는 로직 추가
-        sessionStorage.setItem(
-          "objects",
-          JSON.stringify(
-            JSON.parse(sessionStorage.getItem("objects") || "[]").filter(
-              (obj: any) => obj.id !== object.id
-            )
-          )
-        );
-        deleteObject(object.id);
-        return;
+        try {
+          await deleteDoc(doc(db, "canvas", object.id));
+          deleteObject(object.id);
+        } catch (e) {
+          console.error(e);
+          alert("오류가 발생하여 삭제에 실패했습니다.");
+        } finally {
+          return;
+        }
       }
 
       if (!isChanged && object.id !== "") {
         return;
       }
 
-      if (object.id === "") {
-        // TODO : DB에 저장하는 로직 추가
-        // TODO : DB에서 새로운 id를 받아오는 로직 추가
-        const insertedId = new Date().getTime().toString();
+      let data = object.data;
 
-        sessionStorage.setItem(
-          "objects",
-          JSON.stringify(
-            JSON.parse(sessionStorage.getItem("objects") || "[]").concat({
-              ...object,
-              id: insertedId,
-            })
-          )
-        );
+      if (object.id === "") {
+        if (object.data.type === "image") {
+          const response = await fetch((object.data as ImageInfo).src);
+          const blob = await response.blob();
+          const imageName = Date.now().toString();
+          const storageRef = ref(storage, imageName);
+          const snapshot = await uploadBytes(storageRef, blob);
+          const downloadURL = await getDownloadURL(snapshot.ref);
+          data = {
+            ...object.data,
+            src: downloadURL,
+          };
+        }
+
+        const docRef = await addDoc(collection(db, "canvas"), {
+          x: object.x,
+          y: object.y,
+          z: object.z,
+          rotation: object.rotation,
+          width: object.width,
+          height: object.height,
+          data,
+          disabled: false,
+          createdAt: new Date().toISOString(),
+        });
+
+        const addedObject: ObjectModel = {
+          ...object,
+          data,
+          id: docRef.id,
+        };
+
         sessionStorage.setItem(
           "history",
           JSON.stringify(
             JSON.parse(sessionStorage.getItem("history") || "[]").concat(
-              insertedId
+              docRef.id
             )
           )
         );
-        updateObject({ ...object, id: insertedId });
-        // setObject((prev) => ({ ...prev, id: insertedId }));
+        updateObject(addedObject);
         return;
       }
 
       // TODO : DB에서 업데이트하는 로직 추가
-      sessionStorage.setItem(
-        "objects",
-        JSON.stringify(
-          JSON.parse(sessionStorage.getItem("objects") || "[]").map(
-            (obj: any) => (obj.id === object.id ? object : obj)
-          )
-        )
-      );
+      const docRef = doc(db, "canvas", object.id); // 문서 참조 생성
+      await updateDoc(docRef, {
+        x: object.x,
+        y: object.y,
+        z: object.z,
+        rotation: object.rotation,
+        width: object.width,
+        height: object.height,
+        data: object.data,
+      });
     };
 
     window.addEventListener("mousemove", onMove);

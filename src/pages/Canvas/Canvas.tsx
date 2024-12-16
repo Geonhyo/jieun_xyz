@@ -14,6 +14,8 @@ import ObjectComponent from "./ObjectComponent";
 import PositionButton from "./PositionButton";
 import LoginButton from "./LoginButton";
 import LoginModal from "./LoginModal";
+import { collection, getDocs } from "@firebase/firestore";
+import { db } from "../../firebaseConfig";
 
 const originX = window.innerWidth / 2;
 const originY = window.innerHeight / 2;
@@ -48,11 +50,23 @@ const Canvas: React.FC = () => {
   ]);
 
   useEffect(() => {
-    // TODO : DB에서 불러오기
-    const savedObjects = sessionStorage.getItem("objects");
-    if (savedObjects) {
-      setObjects((prev) => prev.concat(JSON.parse(savedObjects)));
-    }
+    const fetchObjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "canvas"));
+
+        // map()을 사용해 데이터를 변환
+        const fetchedObjects = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as ObjectModel[];
+
+        setObjects((prev) => prev.concat(fetchedObjects));
+      } catch (error) {
+        console.error("Error fetching canvas objects:", error);
+      }
+    };
+
+    fetchObjects();
   }, []);
 
   const handleResetScale = () => {
