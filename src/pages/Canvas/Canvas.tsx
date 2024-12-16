@@ -278,6 +278,7 @@ const Canvas: React.FC = () => {
     if (code === adminCode) {
       sessionStorage.setItem("role", adminCode);
       setIsLoginModalOpened(false);
+      alert("진니가 확인되었습니다! 😎");
     } else {
       alert("비밀 코드가 올바르지 않습니다.");
     }
