@@ -405,12 +405,8 @@ const ObjectComponent: React.FC<Props> = ({
   };
 
   const handleTapBackdrop = (e: React.MouseEvent | React.TouchEvent) => {
-    e.stopPropagation();
-
     let movedCount = 0;
     const onMove = (e: MouseEvent | TouchEvent) => {
-      e.stopPropagation();
-
       movedCount++;
     };
 
@@ -714,23 +710,23 @@ const ObjectComponent: React.FC<Props> = ({
               />
               <p className={styles.taskLabel}>삭제</p>
             </button>
-            {object.data.type === "image" ||
-              (object.data.type === "sticker" && (
-                <>
-                  <div className={styles.taskDivider} />
-                  <button
-                    className={styles.taskButton}
-                    onClick={handleRestoreRatio}
-                  >
-                    <img
-                      className={styles.taskIcon}
-                      src="icons/ratio.webp"
-                      alt="ratio-restore"
-                    />
-                    <p className={styles.taskLabel}>원본 비율</p>
-                  </button>
-                </>
-              ))}
+            {(object.data.type === "image" ||
+              object.data.type === "sticker") && (
+              <>
+                <div className={styles.taskDivider} />
+                <button
+                  className={styles.taskButton}
+                  onClick={handleRestoreRatio}
+                >
+                  <img
+                    className={styles.taskIcon}
+                    src="icons/ratio.webp"
+                    alt="ratio-restore"
+                  />
+                  <p className={styles.taskLabel}>원본 비율</p>
+                </button>
+              </>
+            )}
             {object.data.type === "text" && object.data.text !== "" && (
               <>
                 {selectedSubTask !== null && (
