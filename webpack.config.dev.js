@@ -53,6 +53,7 @@ module.exports = {
     static: "./public", // 정적 파일 제공 경로
     port: 3000, // Dev Server 실행 포트
     historyApiFallback: true, // 클라이언트 사이드 라우팅 지원
+    allowedHosts: "all", // 모든 호스트 허용
   },
   devtool: "inline-source-map", // 디버깅을 위한 소스맵
 };
