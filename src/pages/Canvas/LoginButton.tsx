@@ -1,6 +1,4 @@
-import { useState } from "react";
 import styles from "./LoginButton.module.css";
-import CommonModal from "../../components/common/Modal";
 
 type Props = {
   openLoginModal: () => void;
@@ -9,12 +7,24 @@ type Props = {
 const LoginButton: React.FC<Props> = ({ openLoginModal }) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    openLoginModal();
+    if (sessionStorage.getItem("role") === "master") {
+      sessionStorage.removeItem("role");
+      window.location.reload();
+      alert("진니 퇴근! 😎");
+    } else {
+      openLoginModal();
+    }
   };
+
+  const isLogined = sessionStorage.getItem("role") === "master";
 
   return (
     <button className={styles.container} onClick={handleClick}>
-      <img className={styles.image} src="icons/login.webp" alt="back" />
+      <img
+        className={styles.image}
+        src={`icons/${isLogined ? "logout" : "login"}.webp`}
+        alt={isLogined ? "logout" : "login"}
+      />
     </button>
   );
 };
