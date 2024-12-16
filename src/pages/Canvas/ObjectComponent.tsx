@@ -66,7 +66,7 @@ const ObjectComponent: React.FC<Props> = ({
   const [isSelected, setIsSelected] = useState(value.id === "");
   const [isChanged, setIsChanged] = useState(false);
   const [selectedSubTask, setSelectedSubTask] = useState<
-    "size" | "color" | null
+    "family" | "size" | "color" | null
   >(null);
 
   useEffect(() => {
@@ -531,18 +531,7 @@ const ObjectComponent: React.FC<Props> = ({
 
   const handleTextFamilyClicked = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
-    setObject((prev) => ({
-      ...prev,
-      data: {
-        ...prev.data,
-        family:
-          fontFamilyList[
-            (fontFamilyList.indexOf((prev.data as TextInfo).family) + 1) %
-              fontFamilyList.length
-          ],
-      } as TextInfo,
-    }));
-    setSelectedSubTask(null);
+    setSelectedSubTask("family");
   };
 
   const handleTextColorClicked = (e: React.MouseEvent | React.TouchEvent) => {
@@ -565,6 +554,18 @@ const ObjectComponent: React.FC<Props> = ({
         ...prev.data,
         bold: !(prev.data as TextInfo).bold,
       } as TextInfo,
+    }));
+  };
+
+  const handleTextFamilySelected = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    const family = (e.currentTarget as HTMLButtonElement).value;
+    setObject((prev) => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        family,
+      },
     }));
   };
 
@@ -736,12 +737,16 @@ const ObjectComponent: React.FC<Props> = ({
                     onTouchStart={handleTextBackdropClicked}
                   />
                 )}
-
                 <div className={styles.taskDivider} />
                 <button
                   className={styles.taskButton}
-                  onMouseDown={handleTextFamilyClicked}
-                  onTouchStart={handleTextFamilyClicked}
+                  style={{
+                    backgroundColor:
+                      selectedSubTask === "family"
+                        ? "var(--black)"
+                        : "transparent",
+                  }}
+                  onClick={handleTextFamilyClicked}
                 >
                   <img
                     className={styles.taskIcon}
@@ -751,8 +756,13 @@ const ObjectComponent: React.FC<Props> = ({
                 </button>
                 <button
                   className={styles.taskButton}
-                  onMouseDown={handleTextColorClicked}
-                  onTouchStart={handleTextColorClicked}
+                  style={{
+                    backgroundColor:
+                      selectedSubTask === "color"
+                        ? "var(--black)"
+                        : "transparent",
+                  }}
+                  onClick={handleTextColorClicked}
                 >
                   <img
                     className={styles.taskIcon}
@@ -762,8 +772,13 @@ const ObjectComponent: React.FC<Props> = ({
                 </button>
                 <button
                   className={styles.taskButton}
-                  onMouseDown={handleTextSizeClicked}
-                  onTouchStart={handleTextSizeClicked}
+                  style={{
+                    backgroundColor:
+                      selectedSubTask === "size"
+                        ? "var(--black)"
+                        : "transparent",
+                  }}
+                  onClick={handleTextSizeClicked}
                 >
                   <img
                     className={styles.taskIcon}
@@ -773,8 +788,7 @@ const ObjectComponent: React.FC<Props> = ({
                 </button>
                 <button
                   className={styles.taskButton}
-                  onMouseDown={handleTextWeightClicked}
-                  onTouchStart={handleTextWeightClicked}
+                  onClick={handleTextWeightClicked}
                   style={{
                     backgroundColor: (object.data as TextInfo).bold
                       ? "var(--black)"
@@ -787,10 +801,32 @@ const ObjectComponent: React.FC<Props> = ({
                     alt="font-family"
                   />
                 </button>
+                {selectedSubTask === "family" && (
+                  <div className={styles.subTaskIsland}>
+                    {fontFamilyList.map((family) => (
+                      <button
+                        key={family}
+                        className={styles.fontFamilyButton}
+                        style={{
+                          fontFamily: family,
+                          backgroundColor:
+                            family === (object.data as TextInfo).family
+                              ? "var(--black)"
+                              : "var(--gray)",
+                        }}
+                        value={family}
+                        onClick={handleTextFamilySelected}
+                      >
+                        <p>{family}</p>
+                      </button>
+                    ))}
+                  </div>
+                )}
                 {selectedSubTask === "color" && (
                   <div className={styles.subTaskIsland}>
                     {fontColorList.map((color) => (
                       <button
+                        key={color}
                         className={styles.colorCircle}
                         style={{
                           backgroundColor: color,
@@ -800,8 +836,7 @@ const ObjectComponent: React.FC<Props> = ({
                               : "inherit",
                         }}
                         value={color}
-                        onMouseDown={handleTextColorSelected}
-                        onTouchStart={handleTextColorSelected}
+                        onClick={handleTextColorSelected}
                       />
                     ))}
                   </div>

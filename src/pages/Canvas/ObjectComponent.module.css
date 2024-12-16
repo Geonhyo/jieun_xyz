@@ -157,6 +157,25 @@
   z-index: 100;
 }
 
+.fontFamilyButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--gray);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+}
+
+.fontFamilyButton:hover,
+.fontFamilyButton:active {
+  background-color: var(--black);
+}
+
 .colorCircle {
   width: 1.5rem;
   height: 1.5rem;

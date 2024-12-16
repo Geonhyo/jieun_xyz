@@ -218,7 +218,7 @@ const Canvas: React.FC = () => {
           text: "",
           size: 24,
           color: "#232323",
-          family: "Pretendard",
+          family: "NotoSansKR",
           bold: false,
         } as TextInfo,
         disabled: false,
