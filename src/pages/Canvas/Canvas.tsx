@@ -260,8 +260,9 @@ const Canvas: React.FC = () => {
   };
 
   const handleLoginSubmitted = (code: string) => {
-    if (code === process.env.REACT_APP_ADMIN_CODE) {
-      sessionStorage.setItem("role", "master");
+    const adminCode = process.env.REACT_APP_ADMIN_CODE;
+    if (code === adminCode) {
+      sessionStorage.setItem("role", adminCode);
       setIsLoginModalOpened(false);
     } else {
       alert("비밀 코드가 올바르지 않습니다.");

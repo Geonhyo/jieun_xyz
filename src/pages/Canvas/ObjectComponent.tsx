@@ -9,6 +9,8 @@ import styles from "./ObjectComponent.module.css";
 import { PositionModel } from "../../models/position";
 import FontSizeControl from "./FontSizeControl";
 
+const adminCode = process.env.REACT_APP_ADMIN_CODE;
+
 const fontColorList = [
   "#232323", // black
   "#FFFFFF", // white
@@ -78,7 +80,7 @@ const ObjectComponent: React.FC<Props> = ({
 
     e.stopPropagation();
 
-    const isAdmin = sessionStorage.getItem("role") === "master";
+    const isAdmin = sessionStorage.getItem("role") === adminCode;
 
     const isExpired =
       new Date().getTime() - new Date(object.createdAt).getTime() >
@@ -618,7 +620,7 @@ const ObjectComponent: React.FC<Props> = ({
             autoFocus={isSelected}
             disabled={
               object.disabled ||
-              (sessionStorage.getItem("role") !== "master" &&
+              (sessionStorage.getItem("role") !== adminCode &&
                 new Date().getTime() - new Date(object.createdAt).getTime() >
                   10 * 60 * 1000) ||
               (object.id !== "" &&
