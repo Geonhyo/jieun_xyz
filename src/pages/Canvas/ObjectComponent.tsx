@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ImageInfo,
   ObjectModel,
@@ -57,6 +57,19 @@ const ObjectComponent: React.FC<Props> = ({
   const [selectedSubTask, setSelectedSubTask] = useState<
     "size" | "color" | null
   >(null);
+
+  useEffect(() => {
+    if (object.data.type !== "text") {
+      return;
+    }
+
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+
+    return () => {};
+  }, [scale, object.data]);
 
   const handleTap = async (e: React.MouseEvent | React.TouchEvent) => {
     if (object.disabled) {
@@ -210,12 +223,6 @@ const ObjectComponent: React.FC<Props> = ({
         width: Math.max(32, object.width + (localDx * 2) / scale), // 최소 크기 제한
         height: Math.max(32, object.height + (localDy * 2) / scale), // 최소 크기 제한
       }));
-
-      if (object.data.type === "text" && textareaRef.current) {
-        // 높이를 초기화한 후 scrollHeight로 다시 설정
-        textareaRef.current.style.height = "auto";
-        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-      }
     };
 
     const onEnd = () => {
@@ -252,12 +259,6 @@ const ObjectComponent: React.FC<Props> = ({
         width: Math.max(32, object.width + (localDx * 2) / scale), // 최소 크기 제한
         height: Math.max(32, object.height + (localDy * 2) / scale), // 최소 크기 제한
       }));
-
-      if (object.data.type === "text" && textareaRef.current) {
-        // 높이를 초기화한 후 scrollHeight로 다시 설정
-        textareaRef.current.style.height = "auto";
-        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-      }
     };
 
     const onEnd = () => {
@@ -392,8 +393,12 @@ const ObjectComponent: React.FC<Props> = ({
   };
 
   const handleTapBackdrop = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+
     let movedCount = 0;
-    const onMove = () => {
+    const onMove = (e: MouseEvent | TouchEvent) => {
+      e.stopPropagation();
+
       movedCount++;
     };
 
@@ -409,6 +414,9 @@ const ObjectComponent: React.FC<Props> = ({
 
       setIsSelected(false);
       setSelectedObjectId(null);
+      if (textareaRef.current) {
+        textareaRef.current.blur();
+      }
 
       if (
         object.id !== "" &&
@@ -485,10 +493,6 @@ const ObjectComponent: React.FC<Props> = ({
         text,
       },
     }));
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
   };
 
   const handleTextBackdropClicked = (
@@ -557,10 +561,6 @@ const ObjectComponent: React.FC<Props> = ({
         size: value,
       },
     }));
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
   };
 
   return (
@@ -616,13 +616,21 @@ const ObjectComponent: React.FC<Props> = ({
             rows={1}
             placeholder="텍스트를 입력하세요"
             autoFocus={isSelected}
-            disabled={object.disabled}
+            disabled={
+              object.disabled ||
+              (sessionStorage.getItem("role") !== "master" &&
+                new Date().getTime() - new Date(object.createdAt).getTime() >
+                  10 * 60 * 1000) ||
+              (object.id !== "" &&
+                !JSON.parse(sessionStorage.getItem("history") || "[]").includes(
+                  object.id
+                ))
+            }
             style={{
               maxWidth: "100%",
               width: "100%",
               height: "auto",
-              fontSize: (object.data as TextInfo).size * scale,
-              lineHeight: (object.data as TextInfo).size < 48 ? "1.25" : "1",
+              fontSize: `${(object.data as TextInfo).size * scale}px`,
               color: (object.data as TextInfo).color,
               fontFamily: (object.data as TextInfo).family,
               fontWeight: (object.data as TextInfo).bold ? "bold" : "normal",

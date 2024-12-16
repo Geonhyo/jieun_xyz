@@ -29,8 +29,9 @@ const FontSizeControl: React.FC<Props> = ({ value, onChangeValue }) => {
   };
 
   const onMouseTap = (e: React.MouseEvent) => {
-    const onMove = (e: MouseEvent | React.MouseEvent) => {
+    const onMove = (e: MouseEvent) => {
       e.stopPropagation();
+
       if (!sliderRef.current) return;
 
       const rect = sliderRef.current.getBoundingClientRect();
@@ -47,18 +48,19 @@ const FontSizeControl: React.FC<Props> = ({ value, onChangeValue }) => {
       window.removeEventListener("mouseup", onEnd);
     };
 
-    onMove(e);
+    onMove(e.nativeEvent);
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onEnd, { once: true });
   };
 
   const onTouchTap = (e: React.TouchEvent) => {
-    const onMove = (e: TouchEvent | React.TouchEvent) => {
+    const onMove = (e: TouchEvent) => {
       e.stopPropagation();
+
       if (!sliderRef.current) return;
 
       const rect = sliderRef.current.getBoundingClientRect();
-      const offsetX = e["touches"][0].clientX - rect.left; //x-position relative to the slider
+      const offsetX = e.touches[0].clientX - rect.left; //x-position relative to the slider
       const percentage = Math.min(Math.max(offsetX / rect.width, 0), 1); // Regularize between 0 and 1
       const newValue = Math.round(MIN + percentage * (MAX - MIN)); // Calculate value
       onChangeValue(newValue);
@@ -71,13 +73,18 @@ const FontSizeControl: React.FC<Props> = ({ value, onChangeValue }) => {
       window.removeEventListener("touchend", onEnd);
     };
 
-    onMove(e);
+    onMove(e.nativeEvent);
     window.addEventListener("touchmove", onMove);
     window.addEventListener("touchend", onEnd, { once: true });
   };
 
   return (
-    <div className={styles.slider} ref={sliderRef} onMouseDown={handleTap}>
+    <div
+      className={styles.slider}
+      ref={sliderRef}
+      onMouseDown={handleTap}
+      onTouchStart={handleTap}
+    >
       <div className={styles.scaleBar} />
       <div
         className={styles.handle}
