@@ -69,6 +69,22 @@ const Canvas: React.FC = () => {
     fetchObjects();
   }, []);
 
+  useEffect(() => {
+    const sortedObjects = [...objects].sort(
+      (a, b) =>
+        a.z - b.z ||
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+
+    const isOrderChanged = objects.some(
+      (object, index) => object !== sortedObjects[index]
+    );
+
+    if (isOrderChanged) {
+      setObjects(sortedObjects);
+    }
+  }, [objects]);
+
   const handleResetScale = () => {
     setScale(1);
   };
@@ -249,6 +265,10 @@ const Canvas: React.FC = () => {
     );
   };
 
+  const getMaxZ = () => {
+    return objects.length > 0 ? Math.max(...objects.map((obj) => obj.z)) : 0;
+  };
+
   const handleObjectDeleted = (id: string) => {
     setObjects((prev) => prev.filter((obj) => obj.id !== id));
   };
@@ -297,19 +317,26 @@ const Canvas: React.FC = () => {
         backgroundSize: `${100 * scale}%`, // 배경 크기 조정
       }}
     >
-      {objects.map((object, index) => {
-        return (
-          <ObjectComponent
-            key={`${object.id}-${index}`}
-            scale={scale}
-            position={position}
-            object={object}
-            deleteObject={handleObjectDeleted}
-            setSelectedObjectId={setSelectedObjectId}
-            updateObject={handleObjectUpdated}
-          />
-        );
-      })}
+      {objects
+        .sort(
+          (a, b) =>
+            a.z - b.z ||
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        )
+        .map((object, index) => {
+          return (
+            <ObjectComponent
+              key={`${object.id}-${index}`}
+              scale={scale}
+              position={position}
+              object={object}
+              setSelectedObjectId={setSelectedObjectId}
+              getMaxZ={getMaxZ}
+              deleteObject={handleObjectDeleted}
+              updateObject={handleObjectUpdated}
+            />
+          );
+        })}
       {!selectedObjectId && (
         <>
           <ScaleButton scale={scale} resetScale={handleResetScale} />

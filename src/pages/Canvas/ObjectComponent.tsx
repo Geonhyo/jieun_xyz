@@ -49,6 +49,7 @@ type Props = {
   scale: number;
   position: PositionModel;
   setSelectedObjectId: React.Dispatch<React.SetStateAction<string | null>>;
+  getMaxZ: () => number;
   deleteObject: (id: string) => void;
   updateObject: (object: ObjectModel) => void;
 };
@@ -58,6 +59,7 @@ const ObjectComponent: React.FC<Props> = ({
   scale,
   position,
   setSelectedObjectId,
+  getMaxZ,
   deleteObject,
   updateObject,
 }) => {
@@ -401,6 +403,23 @@ const ObjectComponent: React.FC<Props> = ({
     setSelectedObjectId(null);
   };
 
+  const handleMaxZ = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+
+    const maxZ = getMaxZ();
+    if (maxZ + 1 > object.z && !isChanged) {
+      setIsChanged(true);
+    }
+    setObject({
+      ...object,
+      z: maxZ + 1,
+    });
+    updateObject({
+      ...object,
+      z: maxZ + 1,
+    });
+  };
+
   const handleTapBackdrop = (e: React.MouseEvent | React.TouchEvent) => {
     let movedCount = 0;
     const onMove = (e: MouseEvent | TouchEvent) => {
@@ -707,6 +726,10 @@ const ObjectComponent: React.FC<Props> = ({
                 alt="delete"
               />
               <p className={styles.taskLabel}>삭제</p>
+            </button>
+            <div className={styles.taskDivider} />
+            <button className={styles.taskButton} onClick={handleMaxZ}>
+              <p className={styles.taskLabel}>맨 앞으로</p>
             </button>
             {object.data.type === "text" && object.data.text !== "" && (
               <>
