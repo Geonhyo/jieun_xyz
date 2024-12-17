@@ -22,6 +22,7 @@ html {
 :root {
   --primary-color: #AF52DE;
   --background-color: #FCFCFC;
+  --background-dark-color: #EDEDEF;
   --black: #232323;
   --gray: #626266;
   --light-gray: #D1D1D6;
