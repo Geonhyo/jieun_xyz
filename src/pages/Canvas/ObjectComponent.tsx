@@ -228,23 +228,23 @@ const ObjectComponent: React.FC<Props> = ({
 
       const localDx =
         dx * Math.cos(object.rotation) + dy * Math.sin(object.rotation);
-      // const localDy =
-      //   dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
+      const localDy =
+        dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
 
       const ratio =
         (object.data as ImageInfo).height / (object.data as ImageInfo).width;
       const newWidth = object.width + (localDx * 2) / scale;
-      const width = newWidth;
-      const height = newWidth * ratio;
+      const newHeight =
+        object.data.type !== "text"
+          ? newWidth * ratio
+          : object.height + (localDy * 2) / scale;
       const minWidth = 32;
-      const minHeight =
-        (32 * (object.data as ImageInfo).height) /
-        (object.data as ImageInfo).width;
+      const minHeight = 32;
 
       setObject((prev) => ({
         ...prev,
-        width: Math.max(minWidth, width),
-        height: Math.max(minHeight, height),
+        width: Math.max(minWidth, newWidth),
+        height: Math.max(minHeight, newHeight),
       }));
     };
 
@@ -274,23 +274,23 @@ const ObjectComponent: React.FC<Props> = ({
 
       const localDx =
         dx * Math.cos(object.rotation) + dy * Math.sin(object.rotation);
-      // const localDy =
-      //   dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
+      const localDy =
+        dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
 
       const ratio =
         (object.data as ImageInfo).height / (object.data as ImageInfo).width;
       const newWidth = object.width + (localDx * 2) / scale;
-      const width = newWidth;
-      const height = newWidth * ratio;
+      const newHeight =
+        object.data.type !== "text"
+          ? newWidth * ratio
+          : object.height + (localDy * 2) / scale;
       const minWidth = 32;
-      const minHeight =
-        (32 * (object.data as ImageInfo).height) /
-        (object.data as ImageInfo).width;
+      const minHeight = 32;
 
       setObject((prev) => ({
         ...prev,
-        width: Math.max(minWidth, width),
-        height: Math.max(minHeight, height),
+        width: Math.max(minWidth, newWidth),
+        height: Math.max(minHeight, newHeight),
       }));
     };
 
