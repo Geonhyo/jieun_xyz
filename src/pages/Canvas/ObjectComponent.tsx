@@ -394,29 +394,6 @@ const ObjectComponent: React.FC<Props> = ({
     setIsSelected(false);
   };
 
-  const handleRestoreRatio = () => {
-    if (object.data.type === "image") {
-      setObject((prev) => ({
-        ...prev,
-        height:
-          prev.width *
-          ((prev.data as ImageInfo).height / (prev.data as ImageInfo).width),
-      }));
-      return;
-    }
-
-    if (object.data.type === "sticker") {
-      setObject((prev) => ({
-        ...prev,
-        height:
-          prev.width *
-          ((prev.data as StickerInfo).height /
-            (prev.data as StickerInfo).width),
-      }));
-      return;
-    }
-  };
-
   const handleCancel = () => {
     setIsSelected(false);
     setObject(value);
@@ -731,23 +708,6 @@ const ObjectComponent: React.FC<Props> = ({
               />
               <p className={styles.taskLabel}>삭제</p>
             </button>
-            {(object.data.type === "image" ||
-              object.data.type === "sticker") && (
-              <>
-                <div className={styles.taskDivider} />
-                <button
-                  className={styles.taskButton}
-                  onClick={handleRestoreRatio}
-                >
-                  <img
-                    className={styles.taskIcon}
-                    src="icons/ratio.webp"
-                    alt="ratio-restore"
-                  />
-                  <p className={styles.taskLabel}>원본 비율</p>
-                </button>
-              </>
-            )}
             {object.data.type === "text" && object.data.text !== "" && (
               <>
                 {selectedSubTask !== null && (
