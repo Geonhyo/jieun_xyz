@@ -232,7 +232,10 @@ const ObjectComponent: React.FC<Props> = ({
         dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
 
       const ratio =
-        (object.data as ImageInfo).height / (object.data as ImageInfo).width;
+        object.data.type !== "text"
+          ? (object.data as ImageInfo | StickerInfo).height /
+            (object.data as ImageInfo | StickerInfo).width
+          : 1;
       const newWidth = object.width + (localDx * 2) / scale;
       const newHeight =
         object.data.type !== "text"
@@ -278,7 +281,10 @@ const ObjectComponent: React.FC<Props> = ({
         dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
 
       const ratio =
-        (object.data as ImageInfo).height / (object.data as ImageInfo).width;
+        object.data.type !== "text"
+          ? (object.data as ImageInfo | StickerInfo).height /
+            (object.data as ImageInfo | StickerInfo).width
+          : 1;
       const newWidth = object.width + (localDx * 2) / scale;
       const newHeight =
         object.data.type !== "text"
