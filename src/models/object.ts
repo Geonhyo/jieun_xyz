@@ -16,7 +16,6 @@ export interface TextInfo {
 
 export interface StickerInfo {
   type: "sticker";
-  id: string;
   title: string;
   src: string;
   category: string;

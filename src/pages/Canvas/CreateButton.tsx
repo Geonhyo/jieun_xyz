@@ -14,12 +14,39 @@ type Props = {
 
 const stickers = stickersData as StickerInfo[];
 
+const stickerCategories = [
+  {
+    title: "파티",
+    value: "party",
+  },
+  {
+    title: "생일",
+    value: "birthday",
+  },
+  {
+    title: "배경 없음",
+    value: "lined",
+  },
+  {
+    title: "메모지",
+    value: "paper",
+  },
+  {
+    title: "테이프",
+    value: "masking-tape",
+  },
+  {
+    title: "꽃",
+    value: "flower",
+  },
+];
+
 const CreateButton: React.FC<Props> = ({ addImage, addText, addSticker }) => {
   const [onClicked, setOnClicked] = useState<boolean>(false);
   const [isStickersModalOpened, setIsStickersModalOpened] =
     useState<boolean>(false);
   const [stickerCategory, setStickerCategory] = useState<
-    "memo" | "message" | "flower" | null
+    "party" | "birthday" | "lined" | "paper" | "masking-tape" | "flower" | null
   >(null);
 
   const handleClick = () => {
@@ -72,8 +99,11 @@ const CreateButton: React.FC<Props> = ({ addImage, addText, addSticker }) => {
   };
 
   const handleStickerSelected = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const id = e.currentTarget.value;
-    const sticker = stickers.find((sticker) => sticker.id === id);
+    const value = e.currentTarget.value;
+    const sticker = stickers
+      .filter((sticker) => sticker.category === value.split("/")[0])
+      .find((sticker) => sticker.category + "/" + sticker.src === value);
+
     if (!sticker) {
       return;
     }
@@ -86,7 +116,13 @@ const CreateButton: React.FC<Props> = ({ addImage, addText, addSticker }) => {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.stopPropagation();
-    const category = e.currentTarget.value as "memo" | "message" | "flower";
+    const category = e.currentTarget.value as
+      | "party"
+      | "birthday"
+      | "lined"
+      | "paper"
+      | "masking-tape"
+      | "flower";
     setStickerCategory(category);
   };
 
@@ -147,51 +183,26 @@ const CreateButton: React.FC<Props> = ({ addImage, addText, addSticker }) => {
       {isStickersModalOpened && (
         <CommonModal title="스티커 선택" onClose={handleStickerModalClose}>
           <div className={stickersModalStyles.tabBar}>
-            <button
-              className={stickersModalStyles.tabItem}
-              style={
-                stickerCategory === "memo"
-                  ? {
-                      backgroundColor: "var(--black)",
-                      color: "var(--white)",
-                    }
-                  : {}
-              }
-              value={"memo"}
-              onMouseDown={handleStickerCategorySelected}
-            >
-              메모지
-            </button>
-            <button
-              className={stickersModalStyles.tabItem}
-              style={
-                stickerCategory === "message"
-                  ? {
-                      backgroundColor: "var(--black)",
-                      color: "var(--white)",
-                    }
-                  : {}
-              }
-              value={"message"}
-              onMouseDown={handleStickerCategorySelected}
-            >
-              메시지
-            </button>
-            <button
-              className={stickersModalStyles.tabItem}
-              style={
-                stickerCategory === "flower"
-                  ? {
-                      backgroundColor: "var(--black)",
-                      color: "var(--white)",
-                    }
-                  : {}
-              }
-              value={"flower"}
-              onMouseDown={handleStickerCategorySelected}
-            >
-              꽃
-            </button>
+            {stickerCategories.map((category) => {
+              return (
+                <button
+                  key={category.value}
+                  className={stickersModalStyles.tabItem}
+                  style={
+                    stickerCategory === category.value
+                      ? {
+                          backgroundColor: "var(--black)",
+                          color: "var(--white)",
+                        }
+                      : {}
+                  }
+                  value={category.value}
+                  onClick={handleStickerCategorySelected}
+                >
+                  {category.title}
+                </button>
+              );
+            })}
           </div>
           <div className={stickersModalStyles.grid}>
             {stickers
@@ -203,10 +214,10 @@ const CreateButton: React.FC<Props> = ({ addImage, addText, addSticker }) => {
               .map((sticker) => {
                 return (
                   <button
-                    key={sticker.id}
+                    key={`${sticker.category}/${sticker.src}`}
                     className={stickersModalStyles.item}
-                    onMouseDown={handleStickerSelected}
-                    value={sticker.id}
+                    onClick={handleStickerSelected}
+                    value={`${sticker.category}/${sticker.src}`}
                   >
                     <img
                       className={stickersModalStyles.image}

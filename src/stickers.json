@@ -1,228 +1,1331 @@
 [
   {
     "type": "sticker",
-    "id": "1-1",
-    "category": "message",
-    "src": "birthday",
-    "title": "생일",
-    "width": 233,
-    "height": 143
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/yellow",
+    "title": "노란색 두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-2",
-    "category": "message",
-    "src": "caffeine",
-    "title": "카페인 섭취",
-    "width": 262,
-    "height": 189
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/pink",
+    "title": "분홍색 두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-3",
-    "category": "message",
-    "src": "candy",
-    "title": "군것질 땡기는 날",
-    "width": 276,
-    "height": 160
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/blue",
+    "title": "파란색 두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-4",
-    "category": "message",
-    "src": "celebrate",
-    "title": "축하해요",
-    "width": 202,
-    "height": 201
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/orange",
+    "title": "주황색 두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-5",
-    "category": "message",
-    "src": "cheer-1",
-    "title": "힘내자 1",
-    "width": 267,
-    "height": 186
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/green",
+    "title": "초록색 두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-6",
-    "category": "message",
-    "src": "cheer-2",
-    "title": "힘내자 2",
-    "width": 206,
-    "height": 186
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/x-mas",
+    "title": "X-MAS 두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-7",
-    "category": "message",
-    "src": "compliment",
-    "title": "잘하고 있어",
-    "width": 254,
-    "height": 141
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/basic",
+    "title": "두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-8",
-    "category": "message",
-    "src": "good-weather",
-    "title": "날씨 좋다",
-    "width": 295,
-    "height": 179
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/white",
+    "title": "하얀색 두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-9",
-    "category": "message",
-    "src": "happy",
-    "title": "행복하자",
-    "width": 308,
-    "height": 149
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/red",
+    "title": "빨간색 두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-10",
-    "category": "message",
-    "src": "important",
-    "title": "중요해",
-    "width": 276,
-    "height": 160
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "lined-candle/purple",
+    "title": "보라색 두꺼운 양초"
   },
   {
     "type": "sticker",
-    "id": "1-11",
-    "category": "message",
-    "src": "love",
-    "title": "LOVE",
-    "width": 183,
-    "height": 167
+    "category": "party",
+    "width": 180,
+    "height": 180,
+    "src": "cake-piece/coffie",
+    "title": "커피 조각케이크"
   },
   {
     "type": "sticker",
-    "id": "1-12",
-    "category": "message",
-    "src": "pounding",
-    "title": "두근~",
-    "width": 196,
-    "height": 186
+    "category": "party",
+    "width": 180,
+    "height": 180,
+    "src": "cake-piece/pink-white",
+    "title": "딸기 생크림 조각케이크"
   },
   {
     "type": "sticker",
-    "id": "1-13",
-    "category": "message",
-    "src": "promise",
-    "title": "약속",
-    "width": 189,
-    "height": 143
+    "category": "party",
+    "width": 180,
+    "height": 180,
+    "src": "cake-piece/pink",
+    "title": "딸기 조각케이크"
   },
   {
     "type": "sticker",
-    "id": "1-14",
-    "category": "message",
-    "src": "salary",
-    "title": "월급날",
-    "width": 320,
-    "height": 143
+    "category": "party",
+    "width": 180,
+    "height": 180,
+    "src": "cake-piece/green",
+    "title": "말차 조각케이크"
   },
   {
     "type": "sticker",
-    "id": "1-15",
-    "category": "message",
-    "src": "scream",
-    "title": "멘붕",
-    "width": 228,
-    "height": 136
+    "category": "party",
+    "width": 180,
+    "height": 180,
+    "src": "cake-piece/line",
+    "title": "조각케이크"
   },
   {
     "type": "sticker",
-    "id": "1-16",
-    "category": "message",
-    "src": "thanks",
-    "title": "고마워",
-    "width": 168,
-    "height": 176
+    "category": "party",
+    "width": 180,
+    "height": 180,
+    "src": "cake-piece/white",
+    "title": "생크림 조각케이크"
   },
   {
     "type": "sticker",
-    "id": "1-17",
-    "category": "message",
-    "src": "trip",
-    "title": "여행가자",
-    "width": 358,
-    "height": 172
+    "category": "party",
+    "width": 180,
+    "height": 180,
+    "src": "cake-piece/chocolate",
+    "title": "초코 조각케이크"
   },
   {
     "type": "sticker",
-    "id": "1-18",
-    "category": "message",
-    "src": "write",
-    "title": "끄적",
-    "width": 309,
-    "height": 193
+    "category": "party",
+    "width": 180,
+    "height": 180,
+    "src": "cake-piece/red",
+    "title": "레드벨벳 조각케이크"
   },
   {
     "type": "sticker",
-    "id": "2-1",
-    "category": "memo",
-    "src": "cloud-1",
-    "title": "구름 1",
-    "width": 334,
-    "height": 80
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "candle/burgundy",
+    "title": "버건디색 양초"
   },
   {
     "type": "sticker",
-    "id": "2-2",
-    "category": "memo",
-    "src": "large-1",
-    "title": "큰 메모장",
-    "width": 340,
-    "height": 444
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "candle/gray",
+    "title": "회색 양초"
   },
   {
     "type": "sticker",
-    "id": "2-3",
-    "category": "memo",
-    "src": "medium-1",
-    "title": "중간 메모-1",
-    "width": 358,
-    "height": 249
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "candle/yellow",
+    "title": "노란색 양초"
   },
   {
     "type": "sticker",
-    "id": "2-4",
-    "category": "memo",
-    "src": "medium-2",
-    "title": "중간 메모-2",
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "candle/blue",
+    "title": "파란색 양초"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "candle/orange",
+    "title": "주황색 양초"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "candle/green",
+    "title": "초록색 양초"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "candle/x-mas",
+    "title": "X-MAS 양초"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "candle/red",
+    "title": "빨간색 양초"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 120,
+    "height": 180,
+    "src": "candle/purple",
+    "title": "보라"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "stripe-hat/pink",
+    "title": "분홍색 스트라이프 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "stripe-hat/blue",
+    "title": "파란색 스트라이프 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "stripe-hat/violet",
+    "title": "보라색 스트라이프 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "stripe-hat/green",
+    "title": "초록색 스트라이프 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "stripe-hat/x-mas",
+    "title": "X-MAS 스트라이프 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "stripe-hat/line",
+    "title": "스트라이프 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "stripe-hat/red",
+    "title": "빨간색 스트라이프 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "hat/yellow",
+    "title": "노란색 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "hat/pink",
+    "title": "분홍"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "hat/blue",
+    "title": "파란색 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "hat/orange",
+    "title": "주황색 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "hat/violet",
+    "title": "보라색 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "hat/line",
+    "title": "모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "hat/red",
+    "title": "빨간색 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 200,
+    "height": 200,
+    "src": "firecracker/lined",
+    "title": "폭죽"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 200,
+    "height": 200,
+    "src": "firecracker/pink",
+    "title": "분홍색 폭죽"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 200,
+    "height": 200,
+    "src": "firecracker/violet",
+    "title": "보라색 폭죽"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 200,
+    "height": 200,
+    "src": "firecracker/colorful",
+    "title": "화려한 폭죽"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 200,
+    "height": 200,
+    "src": "firecracker/x-mas",
+    "title": "X-MAS 폭죽"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 200,
+    "height": 200,
+    "src": "firecracker/white",
+    "title": "하얀색 폭죽"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "dotted-hat/pink",
+    "title": "분홍색 점박이 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "dotted-hat/blue",
+    "title": "파란색 점박이 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "dotted-hat/violet",
+    "title": "보라색 점박이 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "dotted-hat/green",
+    "title": "초록색 점박이 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "dotted-hat/x-mas",
+    "title": "X-MAS 점박이 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "dotted-hat/line",
+    "title": "점박이 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 100,
+    "height": 100,
+    "src": "dotted-hat/red",
+    "title": "빨간색 점박이 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 198,
+    "height": 154,
+    "src": "cake/coffie",
+    "title": "커피 케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 198,
+    "height": 154,
+    "src": "cake/pink-white",
+    "title": "딸기 생크림 케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 198,
+    "height": 154,
+    "src": "cake/pink",
+    "title": "딸기 케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 198,
+    "height": 154,
+    "src": "cake/green",
+    "title": "말차 케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 198,
+    "height": 154,
+    "src": "cake/red-belvet",
+    "title": "레드벨벳 케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 198,
+    "height": 154,
+    "src": "cake/line",
+    "title": "케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 198,
+    "height": 154,
+    "src": "cake/white",
+    "title": "생크림 케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "party",
+    "width": 198,
+    "height": 154,
+    "src": "cake/dark-chocolate",
+    "title": "초코 케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
     "width": 240,
-    "height": 259
+    "height": 60,
+    "src": "teal",
+    "title": "틸그린색"
   },
   {
     "type": "sticker",
-    "id": "2-5",
-    "category": "memo",
-    "src": "small-1",
-    "title": "작은 메모-1",
-    "width": 334,
-    "height": 80
+    "category": "masking-tape",
+    "width": 180,
+    "height": 60,
+    "src": "short-torned-check/yellow",
+    "title": "노란색의 짧고 찢어진 체크무의"
   },
   {
     "type": "sticker",
-    "id": "2-6",
-    "category": "memo",
-    "src": "small-2",
-    "title": "작은 메모 2",
-    "width": 334,
-    "height": 80
+    "category": "masking-tape",
+    "width": 180,
+    "height": 60,
+    "src": "short-torned-check/black",
+    "title": "검정색의 짧고 찢어진 체크무의"
   },
   {
     "type": "sticker",
-    "id": "2-7",
-    "category": "memo",
-    "src": "small-3",
-    "title": "작은 메모 3",
-    "width": 334,
-    "height": 80
+    "category": "masking-tape",
+    "width": 180,
+    "height": 60,
+    "src": "short-torned-check/green",
+    "title": "초록색의 짧고 찢어진 체크무의"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 180,
+    "height": 60,
+    "src": "short-torned-check/navy",
+    "title": "남색의 짧고 찢어진 체크무의"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "burgundy",
+    "title": "버건디색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "lime",
+    "title": "라임색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "sky-blue",
+    "title": "하늘색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "rose",
+    "title": "로즈색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "yellow",
+    "title": "노란색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "peach-yellow",
+    "title": "복숭아색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "pink",
+    "title": "분홍색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "blue",
+    "title": "파란색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "violet",
+    "title": "보라색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "olive",
+    "title": "올리브색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "light-pink",
+    "title": "연분홍색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "green",
+    "title": "초록색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "dark-violet",
+    "title": "진보라색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 390,
+    "height": 60,
+    "src": "torned-check/yellow",
+    "title": "노란색 찢어진 체크무늬"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 390,
+    "height": 60,
+    "src": "torned-check/black",
+    "title": "검정색 찢어진 체크무늬"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 390,
+    "height": 60,
+    "src": "torned-check/green",
+    "title": "초록색 찢어진 체크무늬"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 390,
+    "height": 60,
+    "src": "torned-check/navy",
+    "title": "남색 찢어진 체크무늬"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "cyan",
+    "title": "시안색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "navy",
+    "title": "남색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "cream",
+    "title": "크림색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 420,
+    "height": 60,
+    "src": "check/yellow",
+    "title": "노란색 체크무늬"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 420,
+    "height": 60,
+    "src": "check/black",
+    "title": "검정색 체크무늬"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 420,
+    "height": 60,
+    "src": "check/green",
+    "title": "초록색 체크무늬"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 420,
+    "height": 60,
+    "src": "check/navy",
+    "title": "남색 체크무늬"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "dark-green",
+    "title": "진초록색"
+  },
+  {
+    "type": "sticker",
+    "category": "masking-tape",
+    "width": 240,
+    "height": 60,
+    "src": "red",
+    "title": "빨강색"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "duck",
+    "title": "오리"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "heart-face",
+    "title": "하트 표정"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "mushroom",
+    "title": "버섯"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 200,
+    "height": 100,
+    "src": "happy",
+    "title": "행복함"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "emoticons",
+    "title": "이모티콘들"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "rabbit",
+    "title": "토끼"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "turtle",
+    "title": "거북이"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "cake",
+    "title": "케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "footprint",
+    "title": "발자국"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "ok",
+    "title": "OK"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 200,
+    "height": 150,
+    "src": "mail",
+    "title": "편지"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 280,
+    "height": 200,
+    "src": "space",
+    "title": "우주"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "clover",
+    "title": "클로버"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "question",
+    "title": "의문"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "carrot",
+    "title": "당근"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "note-16",
+    "title": "16분 음표"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 120,
+    "src": "hi",
+    "title": "Hi"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 60,
+    "src": "beans",
+    "title": "콩"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "dust-rabbit",
+    "title": "토끼 먼지"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "dust-baby",
+    "title": "아기 먼지"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "star-baby",
+    "title": "아기 별"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 200,
+    "height": 200,
+    "src": "sun-happy",
+    "title": "행복한 해"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "glitter",
+    "title": "반짝임"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "butterfly",
+    "title": "나비"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "dinosaur",
+    "title": "공룡"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "ghost",
+    "title": "유령"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 200,
+    "height": 200,
+    "src": "lightning",
+    "title": "번개"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 120,
+    "height": 120,
+    "src": "ribbon",
+    "title": "리본"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 120,
+    "height": 120,
+    "src": "heart",
+    "title": "하트"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "moon",
+    "title": "달"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 100,
+    "src": "bow-tie",
+    "title": "나비넥타이"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 150,
+    "src": "cat",
+    "title": "고양이"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "could-face",
+    "title": "얼굴 있는 구름"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 250,
+    "height": 200,
+    "src": "cloudy",
+    "title": "구름 조금"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "frog",
+    "title": "개구리"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 200,
+    "height": 200,
+    "src": "yeah",
+    "title": "Yeah"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 100,
+    "height": 150,
+    "src": "heart-sharp",
+    "title": "뾰족한 하트"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 120,
+    "height": 160,
+    "src": "note-clef",
+    "title": "음자리표"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "dust-adult",
+    "title": "어른 먼지"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "flower",
+    "title": "꽃"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 120,
+    "height": 180,
+    "src": "icecream",
+    "title": "아이스크림"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "cloud-sad",
+    "title": "슬픈 구름"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "sun-sad",
+    "title": "슬픈 해"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "skeleton",
+    "title": "해골"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 120,
+    "src": "love",
+    "title": "Love"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 200,
+    "height": 150,
+    "src": "leaves",
+    "title": "잎사귀"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "cloud-interesting",
+    "title": "흥미로운 구름"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 160,
+    "height": 200,
+    "src": "boo",
+    "title": "BOO"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "petal-2",
+    "title": "꽃잎 2"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 150,
+    "height": 150,
+    "src": "smile",
+    "title": "미소"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 200,
+    "height": 200,
+    "src": "rainbow",
+    "title": "무지개"
+  },
+  {
+    "type": "sticker",
+    "category": "lined",
+    "width": 180,
+    "height": 180,
+    "src": "petal-1",
+    "title": "꽃잎 1"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 176,
+    "height": 198,
+    "src": "balloon",
+    "title": "풍선"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 198,
+    "height": 165,
+    "src": "cake",
+    "title": "케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 60,
+    "height": 160,
+    "src": "candle",
+    "title": "양초"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 168,
+    "height": 196,
+    "src": "cockle-hat",
+    "title": "꼬깔 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 140,
+    "height": 196,
+    "src": "cockle-hat-dotted",
+    "title": "점박이 꼬깔 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 200,
+    "height": 200,
+    "src": "firecracker",
+    "title": "폭죽"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 195,
+    "height": 52,
+    "src": "garland",
+    "title": "가랜드"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 200,
+    "height": 200,
+    "src": "gift",
+    "title": "선물"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 198,
+    "height": 90,
+    "src": "hbd",
+    "title": "HBD"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 198,
+    "height": 44,
+    "src": "happy-birthday",
+    "title": "HAPPY BIRTHDAY"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 160,
+    "height": 200,
+    "src": "lined/cake",
+    "title": "케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 200,
+    "height": 120,
+    "src": "lined/cockle-hats",
+    "title": "꼬깔 모자"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 140,
+    "height": 180,
+    "src": "lined/cupcake",
+    "title": "컵케이크"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 200,
+    "height": 200,
+    "src": "lined/firecraker",
+    "title": "폭죽"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 200,
+    "height": 125,
+    "src": "lined/garland",
+    "title": "가랜드"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 160,
+    "height": 200,
+    "src": "lined/gift",
+    "title": "선물"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 200,
+    "height": 200,
+    "src": "lined/gift-open",
+    "title": "선물 공개"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 200,
+    "height": 200,
+    "src": "lined/hbd",
+    "title": "HBD"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 200,
+    "height": 200,
+    "src": "lined/wine",
+    "title": "와인"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 180,
+    "height": 180,
+    "src": "ribbon-green",
+    "title": "초록색 리본"
+  },
+  {
+    "type": "sticker",
+    "category": "birthday",
+    "width": 132,
+    "height": 198,
+    "src": "ribbon-red",
+    "title": "빨간색 리본"
   },
   {
     "type": "sticker",
@@ -403,5 +1506,262 @@
     "title": "새싹",
     "width": 64,
     "height": 96
+  },
+
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "filled/yellow",
+    "title": "노랑"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "filled/blue",
+    "title": "파랑"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "filled/violet",
+    "title": "보라"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "filled/green",
+    "title": "초록"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "filled/brown",
+    "title": "갈색"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "filled/red",
+    "title": "빨강"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white_lines/yellow",
+    "title": "하얀 배경 스트라이프 패턴 노랑"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white_lines/blue",
+    "title": "하얀 배경 스트라이프 패턴 파랑"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white_lines/violet",
+    "title": "하얀 배경 스트라이프 패턴 보라"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white_lines/green",
+    "title": "하얀 배경 스트라이프 패턴 초록"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white_lines/brown",
+    "title": "하얀 배경 스트라이프 패턴 갈색"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white_lines/red",
+    "title": "하얀 배경 스트라이프 패턴 빨강"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "digital/large/blue",
+    "title": "큰 모눈 배경 파랑"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "digital/large/green",
+    "title": "큰 모눈 배경 초록"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "digital/large/brown",
+    "title": "큰 모눈 배경 갈색"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "digital/large/red",
+    "title": "큰 모눈 배경 빨강"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "digital/small/violet",
+    "title": "작은 모눈 배경 보라"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "digital/small/green",
+    "title": "작은 모눈 배경 초록"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "digital/small/brown",
+    "title": "작은 모눈 배경 갈색"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "digital/small/red",
+    "title": "작은 모눈 배경 빨강"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white/yellow",
+    "title": "하얀 배경 노랑"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white/blue",
+    "title": "하얀 배경 파랑"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white/violet",
+    "title": "하얀 배경 보라"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white/green",
+    "title": "하얀 배경 초록"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white/brown",
+    "title": "하얀 배경 갈색"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "white/red",
+    "title": "하얀 배경 빨강"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "lines/yellow",
+    "title": "스트라이프 패턴 노랑"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "lines/blue",
+    "title": "스트라이프 패턴 파랑"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "lines/violet",
+    "title": "스트라이프 패턴 보라"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "lines/green",
+    "title": "스트라이프 패턴 초록"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "lines/brown",
+    "title": "스트라이프 패턴 갈색"
+  },
+  {
+    "type": "sticker",
+    "category": "paper",
+    "width": 240,
+    "height": 240,
+    "src": "lines/red",
+    "title": "스트라이프 패턴 빨강"
   }
 ]
