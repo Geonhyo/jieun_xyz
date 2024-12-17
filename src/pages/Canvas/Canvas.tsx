@@ -314,6 +314,7 @@ const Canvas: React.FC = () => {
         <>
           <ScaleButton scale={scale} resetScale={handleResetScale} />
           <PositionButton
+            scale={scale}
             position={position}
             origin={{ x: originX, y: originY }}
             resetPosition={handleResetPosition}
