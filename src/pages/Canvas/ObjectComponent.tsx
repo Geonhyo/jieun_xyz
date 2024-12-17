@@ -226,13 +226,23 @@ const ObjectComponent: React.FC<Props> = ({
 
       const localDx =
         dx * Math.cos(object.rotation) + dy * Math.sin(object.rotation);
-      const localDy =
-        dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
+      // const localDy =
+      //   dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
+
+      const ratio =
+        (object.data as ImageInfo).height / (object.data as ImageInfo).width;
+      const newWidth = object.width + (localDx * 2) / scale;
+      const width = newWidth;
+      const height = newWidth * ratio;
+      const minWidth = 32;
+      const minHeight =
+        (32 * (object.data as ImageInfo).height) /
+        (object.data as ImageInfo).width;
 
       setObject((prev) => ({
         ...prev,
-        width: Math.max(32, object.width + (localDx * 2) / scale), // 최소 크기 제한
-        height: Math.max(32, object.height + (localDy * 2) / scale), // 최소 크기 제한
+        width: Math.max(minWidth, width),
+        height: Math.max(minHeight, height),
       }));
     };
 
@@ -262,13 +272,23 @@ const ObjectComponent: React.FC<Props> = ({
 
       const localDx =
         dx * Math.cos(object.rotation) + dy * Math.sin(object.rotation);
-      const localDy =
-        dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
+      // const localDy =
+      //   dy * Math.cos(object.rotation) - dx * Math.sin(object.rotation);
+
+      const ratio =
+        (object.data as ImageInfo).height / (object.data as ImageInfo).width;
+      const newWidth = object.width + (localDx * 2) / scale;
+      const width = newWidth;
+      const height = newWidth * ratio;
+      const minWidth = 32;
+      const minHeight =
+        (32 * (object.data as ImageInfo).height) /
+        (object.data as ImageInfo).width;
 
       setObject((prev) => ({
         ...prev,
-        width: Math.max(32, object.width + (localDx * 2) / scale), // 최소 크기 제한
-        height: Math.max(32, object.height + (localDy * 2) / scale), // 최소 크기 제한
+        width: Math.max(minWidth, width),
+        height: Math.max(minHeight, height),
       }));
     };
 
