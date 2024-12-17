@@ -82,7 +82,7 @@ const ObjectComponent: React.FC<Props> = ({
     }
 
     return () => {};
-  }, [scale, object.data]);
+  }, [scale, object.data, object.width, object.height]);
 
   const handleTap = async (e: React.MouseEvent | React.TouchEvent) => {
     if (object.disabled) {
