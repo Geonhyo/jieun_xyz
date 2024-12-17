@@ -1,4 +1,8 @@
-# jieun.xyz - Personalized Rolling Paper Service
+# jieun.xyz - Personalized Rolling Paper Service Web Application
+
+## 🔗 URL
+
+[Visit Jieun.XYZ](https://www.jieun.xyz)
 
 **jieun.xyz** is a personalized rolling paper web application created to celebrate a friend's birthday. This project uses web interaction technologies to provide an interactive and engaging user experience on both PC and mobile devices.
 
@@ -50,8 +54,6 @@ This project was created by Geonhyo Park. Feel free to reach out with any questi
 This project is licensed under the MIT License.
 
 ---
-
-# jieun.xyz - 개인 롤링페이퍼
 
 **jieun.xyz**는 친구의 생일을 축하하기 위해 제작된 롤링페이퍼 웹 애플리케이션입니다. 이 프로젝트는 웹 상호작용 기술을 활용하여 PC와 모바일 디바이스에서 상호작용적이고 몰입감 있는 사용자 경험을 제공합니다.
 
