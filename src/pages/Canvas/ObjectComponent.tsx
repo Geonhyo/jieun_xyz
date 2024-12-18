@@ -737,16 +737,13 @@ const ObjectComponent: React.FC<Props> = ({
             <button className={styles.taskButton} onClick={handleMaxZ}>
               <p className={styles.taskLabel}>맨 앞으로</p>
             </button>
-            {object.data.type === "text" && object.data.text !== "" && (
-              <>
-                {selectedSubTask !== null && (
-                  <div
-                    className={styles.backdrop}
-                    onMouseDown={handleTextBackdropClicked}
-                    onTouchStart={handleTextBackdropClicked}
-                  />
-                )}
-                <div className={styles.taskDivider} />
+          </div>
+          <button className={styles.cancelButton} onClick={handleCancel}>
+            <p className={styles.taskLabel}>취소</p>
+          </button>
+          {object.data.type === "text" && object.data.text !== "" && (
+            <>
+              <div className={styles.secondTaskIsland}>
                 <button
                   className={styles.taskButton}
                   style={{
@@ -810,60 +807,64 @@ const ObjectComponent: React.FC<Props> = ({
                     alt="font-family"
                   />
                 </button>
-                {selectedSubTask === "family" && (
-                  <div className={styles.subTaskIsland}>
-                    {fontFamilyList.map((family) => (
-                      <button
-                        key={family}
-                        className={styles.fontFamilyButton}
-                        style={{
-                          fontFamily: family,
-                          backgroundColor:
-                            family === (object.data as TextInfo).family
-                              ? "var(--black)"
-                              : "var(--gray)",
-                        }}
-                        value={family}
-                        onClick={handleTextFamilySelected}
-                      >
-                        <p>{family}</p>
-                      </button>
-                    ))}
-                  </div>
-                )}
-                {selectedSubTask === "color" && (
-                  <div className={styles.subTaskIsland}>
-                    {fontColorList.map((color) => (
-                      <button
-                        key={color}
-                        className={styles.colorCircle}
-                        style={{
-                          backgroundColor: color,
-                          border:
-                            color === (object.data as TextInfo).color
-                              ? `3px solid var(--black)`
-                              : "inherit",
-                        }}
-                        value={color}
-                        onClick={handleTextColorSelected}
-                      />
-                    ))}
-                  </div>
-                )}
-                {selectedSubTask === "size" && (
-                  <div className={styles.subTaskIsland}>
-                    <FontSizeControl
-                      value={object.data.size}
-                      onChangeValue={handleTextSizeChanged}
+              </div>
+              {selectedSubTask !== null && (
+                <div
+                  className={styles.backdrop}
+                  onMouseDown={handleTextBackdropClicked}
+                  onTouchStart={handleTextBackdropClicked}
+                />
+              )}
+              {selectedSubTask === "family" && (
+                <div className={styles.subTaskIsland}>
+                  {fontFamilyList.map((family) => (
+                    <button
+                      key={family}
+                      className={styles.fontFamilyButton}
+                      style={{
+                        fontFamily: family,
+                        backgroundColor:
+                          family === (object.data as TextInfo).family
+                            ? "var(--black)"
+                            : "var(--gray)",
+                      }}
+                      value={family}
+                      onClick={handleTextFamilySelected}
+                    >
+                      <p>{family}</p>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {selectedSubTask === "color" && (
+                <div className={styles.subTaskIsland}>
+                  {fontColorList.map((color) => (
+                    <button
+                      key={color}
+                      className={styles.colorCircle}
+                      style={{
+                        backgroundColor: color,
+                        border:
+                          color === (object.data as TextInfo).color
+                            ? `3px solid var(--black)`
+                            : "inherit",
+                      }}
+                      value={color}
+                      onClick={handleTextColorSelected}
                     />
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-          <button className={styles.cancelButton} onClick={handleCancel}>
-            <p className={styles.taskLabel}>취소</p>
-          </button>
+                  ))}
+                </div>
+              )}
+              {selectedSubTask === "size" && (
+                <div className={styles.subTaskIsland}>
+                  <FontSizeControl
+                    value={object.data.size}
+                    onChangeValue={handleTextSizeChanged}
+                  />
+                </div>
+              )}
+            </>
+          )}
         </>
       )}
     </>
