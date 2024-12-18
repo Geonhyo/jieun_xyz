@@ -63,7 +63,6 @@ const ObjectComponent: React.FC<Props> = ({
   deleteObject,
   updateObject,
 }) => {
-  console.log("ObjectComponent rendered", value);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [object, setObject] = useState<ObjectModel>(value);
   const [isSelected, setIsSelected] = useState(value.id === "");
