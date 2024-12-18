@@ -17,6 +17,7 @@ html {
   /* 스크롤 부드럽게 */
   -webkit-text-size-adjust: 100%;
   /* 텍스트 크기 자동 조정 비활성화 */
+  touch-action: none;
 }
 
 :root {
@@ -46,6 +47,7 @@ body {
   -webkit-font-smoothing: antialiased;
   /* 폰트 렌더링 최적화 */
   -moz-osx-font-smoothing: grayscale;
+  touch-action: none;
 }
 
 a {
