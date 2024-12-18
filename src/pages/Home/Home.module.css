@@ -31,8 +31,8 @@
 .button {
   width: 100%;
   max-width: 568px;
-  background-color: var(--primary-color);
-  color: var(--white);
+  background-color: var(--secondary-color);
+  color: var(--black);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -36,8 +36,8 @@ const Canvas: React.FC = () => {
       y: 0,
       z: 0,
       rotation: 0,
-      width: 212,
-      height: 212,
+      width: 120,
+      height: 120,
       disabled: true,
       data: {
         type: "image",
