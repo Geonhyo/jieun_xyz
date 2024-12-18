@@ -1,5 +1,5 @@
 .backdrop {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -60,7 +60,7 @@
 }
 
 .taskIsland {
-  position: fixed;
+  position: absolute;
   bottom: 1.5rem;
   left: 1.5rem;
   display: flex;
@@ -112,7 +112,7 @@
 }
 
 .cancelButton {
-  position: fixed;
+  position: absolute;
   top: 1.5rem;
   left: 1.5rem;
   height: 2.75rem;
@@ -133,7 +133,7 @@
 }
 
 .secondTaskIsland {
-  position: fixed;
+  position: absolute;
   bottom: 5rem;
   left: 1.5rem;
   display: flex;
@@ -152,7 +152,7 @@
 
 .subTaskIsland {
   max-width: 80%;
-  position: fixed;
+  position: absolute;
   bottom: 8.5rem;
   left: 1.5rem;
   display: flex;

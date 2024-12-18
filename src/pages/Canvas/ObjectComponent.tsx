@@ -85,6 +85,12 @@ const ObjectComponent: React.FC<Props> = ({
   }, [scale, object.data, object.width, object.height]);
 
   const handleTap = async (e: React.MouseEvent | React.TouchEvent) => {
+    if (textareaRef.current && document.activeElement === textareaRef.current) {
+      e.stopPropagation();
+      textareaRef.current.blur();
+      return;
+    }
+
     if (object.disabled) {
       return;
     }
@@ -212,6 +218,11 @@ const ObjectComponent: React.FC<Props> = ({
   const handleTapResize = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
 
+    if (textareaRef.current && document.activeElement === textareaRef.current) {
+      textareaRef.current.blur();
+      return;
+    }
+
     if (e.type === "mousedown") {
       onMouseTapResize(e as React.MouseEvent);
       return;
@@ -334,6 +345,11 @@ const ObjectComponent: React.FC<Props> = ({
   const handleTapRotation = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
 
+    if (textareaRef.current && document.activeElement === textareaRef.current) {
+      textareaRef.current.blur();
+      return;
+    }
+
     if (e.type === "mousedown") {
       onMouseTapRotation(e as React.MouseEvent);
       return;
@@ -455,6 +471,12 @@ const ObjectComponent: React.FC<Props> = ({
   };
 
   const handleTapBackdrop = (e: React.MouseEvent | React.TouchEvent) => {
+    if (textareaRef.current && document.activeElement === textareaRef.current) {
+      e.stopPropagation();
+      textareaRef.current.blur();
+      return;
+    }
+
     let movedCount = 0;
     const onMove = (e: MouseEvent | TouchEvent) => {
       movedCount++;
@@ -472,9 +494,6 @@ const ObjectComponent: React.FC<Props> = ({
 
       setIsSelected(false);
       setSelectedObjectId(null);
-      if (textareaRef.current) {
-        textareaRef.current.blur();
-      }
 
       if (
         object.id !== "" &&
