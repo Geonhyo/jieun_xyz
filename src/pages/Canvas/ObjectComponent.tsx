@@ -63,6 +63,7 @@ const ObjectComponent: React.FC<Props> = ({
   deleteObject,
   updateObject,
 }) => {
+  console.log("ObjectComponent rendered", value);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [object, setObject] = useState<ObjectModel>(value);
   const [isSelected, setIsSelected] = useState(value.id === "");
@@ -135,6 +136,7 @@ const ObjectComponent: React.FC<Props> = ({
     e.stopPropagation();
     const initX = e.pageX;
     const initY = e.pageY;
+    let data = object;
 
     const onMove = (e: MouseEvent) => {
       e.stopPropagation();
@@ -143,18 +145,22 @@ const ObjectComponent: React.FC<Props> = ({
       }
       const dx = e.pageX - initX;
       const dy = e.pageY - initY;
-      setObject((prev) => ({
-        ...prev,
-        x: object.x + dx / scale,
-        y: object.y + dy / scale,
-      }));
+      setObject((prev) => {
+        data = {
+          ...prev,
+          x: object.x + dx / scale,
+          y: object.y + dy / scale,
+        };
+
+        return data;
+      });
     };
 
     const onEnd = () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onEnd);
 
-      updateObject(object);
+      updateObject(data);
     };
 
     window.addEventListener("mousemove", onMove);
@@ -169,6 +175,7 @@ const ObjectComponent: React.FC<Props> = ({
     const firstY = e.touches[0].pageY;
     const secondX = isMultiTouch ? e.touches[1].pageX : firstX;
     const secondY = isMultiTouch ? e.touches[1].pageY : firstY;
+    let data = object;
 
     const onMove = (e: TouchEvent) => {
       e.stopPropagation();
@@ -181,18 +188,22 @@ const ObjectComponent: React.FC<Props> = ({
       const secondDx = isMultiTouch ? e.touches[1].pageX - secondX : firstDx;
       const secondDy = isMultiTouch ? e.touches[1].pageY - secondY : firstDy;
 
-      setObject((prev) => ({
-        ...prev,
-        x: object.x + (firstDx + secondDx) / (2 * scale),
-        y: object.y + (firstDy + secondDy) / (2 * scale),
-      }));
+      setObject((prev) => {
+        data = {
+          ...prev,
+          x: object.x + (firstDx + secondDx) / (2 * scale),
+          y: object.y + (firstDy + secondDy) / (2 * scale),
+        };
+
+        return data;
+      });
     };
 
     const onEnd = () => {
       window.removeEventListener("touchmove", onMove);
       window.removeEventListener("touchend", onEnd);
 
-      updateObject(object);
+      updateObject(data);
     };
 
     window.addEventListener("touchmove", onMove);
@@ -217,6 +228,7 @@ const ObjectComponent: React.FC<Props> = ({
     e.stopPropagation();
     const initX = e.pageX;
     const initY = e.pageY;
+    let data = object;
 
     const onMove = (e: MouseEvent) => {
       e.stopPropagation();
@@ -244,18 +256,22 @@ const ObjectComponent: React.FC<Props> = ({
       const minWidth = 32;
       const minHeight = 32;
 
-      setObject((prev) => ({
-        ...prev,
-        width: Math.max(minWidth, newWidth),
-        height: Math.max(minHeight, newHeight),
-      }));
+      setObject((prev) => {
+        data = {
+          ...prev,
+          width: Math.max(minWidth, newWidth),
+          height: Math.max(minHeight, newHeight),
+        };
+
+        return data;
+      });
     };
 
     const onEnd = () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onEnd);
 
-      updateObject(object);
+      updateObject(data);
     };
 
     window.addEventListener("mousemove", onMove);
@@ -266,6 +282,7 @@ const ObjectComponent: React.FC<Props> = ({
     e.stopPropagation();
     const initX = e.touches[0].pageX;
     const initY = e.touches[0].pageY;
+    let data = object;
 
     const onMove = (e: TouchEvent) => {
       e.stopPropagation();
@@ -293,18 +310,22 @@ const ObjectComponent: React.FC<Props> = ({
       const minWidth = 32;
       const minHeight = 32;
 
-      setObject((prev) => ({
-        ...prev,
-        width: Math.max(minWidth, newWidth),
-        height: Math.max(minHeight, newHeight),
-      }));
+      setObject((prev) => {
+        data = {
+          ...prev,
+          width: Math.max(minWidth, newWidth),
+          height: Math.max(minHeight, newHeight),
+        };
+
+        return data;
+      });
     };
 
     const onEnd = () => {
       window.removeEventListener("touchmove", onMove);
       window.removeEventListener("touchend", onEnd);
 
-      updateObject(object);
+      updateObject(data);
     };
 
     window.addEventListener("touchmove", onMove);
@@ -327,6 +348,7 @@ const ObjectComponent: React.FC<Props> = ({
 
   const onMouseTapRotation = (e: React.MouseEvent) => {
     const defaultAngle = Math.atan2(object.height, object.width);
+    let data = object;
 
     const onMove = (e: MouseEvent) => {
       e.stopPropagation();
@@ -338,17 +360,21 @@ const ObjectComponent: React.FC<Props> = ({
 
         e.pageX - object.x * scale - position.x
       );
-      setObject((prev) => ({
-        ...prev,
-        rotation: angle + defaultAngle,
-      }));
+      setObject((prev) => {
+        data = {
+          ...prev,
+          rotation: angle + defaultAngle,
+        };
+
+        return data;
+      });
     };
 
     const onEnd = () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onEnd);
 
-      updateObject(object);
+      updateObject(data);
     };
 
     window.addEventListener("mousemove", onMove);
@@ -357,6 +383,7 @@ const ObjectComponent: React.FC<Props> = ({
 
   const onTouchTapRotation = (e: React.TouchEvent) => {
     const defaultAngle = Math.atan2(object.height, object.width);
+    let data = object;
 
     const onMove = (e: TouchEvent) => {
       e.stopPropagation();
@@ -367,17 +394,21 @@ const ObjectComponent: React.FC<Props> = ({
         e.touches[0].pageY - object.y * scale - position.y,
         e.touches[0].pageX - object.x * scale - position.x
       );
-      setObject((prev) => ({
-        ...prev,
-        rotation: angle + defaultAngle,
-      }));
+      setObject((prev) => {
+        data = {
+          ...prev,
+          rotation: angle + defaultAngle,
+        };
+
+        return data;
+      });
     };
 
     const onEnd = () => {
       window.removeEventListener("touchmove", onMove);
       window.removeEventListener("touchend", onEnd);
 
-      updateObject(object);
+      updateObject(data);
     };
 
     window.addEventListener("touchmove", onMove);
@@ -416,14 +447,12 @@ const ObjectComponent: React.FC<Props> = ({
     if (maxZ + 1 > object.z && !isChanged) {
       setIsChanged(true);
     }
-    setObject({
+    const newObject = {
       ...object,
       z: maxZ + 1,
-    });
-    updateObject({
-      ...object,
-      z: maxZ + 1,
-    });
+    };
+    setObject(newObject);
+    updateObject(newObject);
   };
 
   const handleTapBackdrop = (e: React.MouseEvent | React.TouchEvent) => {
@@ -482,6 +511,11 @@ const ObjectComponent: React.FC<Props> = ({
             ...object.data,
             src: downloadURL,
           };
+        }
+
+        if (object.data.type === "text" && object.data.text === "") {
+          deleteObject(object.id);
+          return;
         }
 
         const docRef = await addDoc(collection(db, "canvas"), {
