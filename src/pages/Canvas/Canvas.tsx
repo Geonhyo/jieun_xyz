@@ -50,6 +50,17 @@ const Canvas: React.FC = () => {
   ]);
 
   useEffect(() => {
+    if (!canvasRef.current) {
+      return;
+    }
+    if (selectedObjectId) {
+      canvasRef.current.style.cursor = "pointer";
+    } else {
+      canvasRef.current.style.cursor = "grab";
+    }
+  }, [selectedObjectId]);
+
+  useEffect(() => {
     const fetchObjects = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "canvas"));

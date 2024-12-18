@@ -721,14 +721,17 @@ const ObjectComponent: React.FC<Props> = ({
             disabled={
               object.disabled ||
               (sessionStorage.getItem("role") !== adminCode &&
-                new Date().getTime() - new Date(object.createdAt).getTime() >
-                  30 * 60 * 1000) ||
-              (object.id !== "" &&
-                !JSON.parse(sessionStorage.getItem("history") || "[]").includes(
-                  object.id
-                ))
+                (new Date().getTime() - new Date(object.createdAt).getTime() >
+                  30 * 60 * 1000 ||
+                  (object.id !== "" &&
+                    !JSON.parse(
+                      sessionStorage.getItem("history") || "[]"
+                    ).includes(object.id))))
             }
             style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
               maxWidth: "100%",
               width: "100%",
               height: "auto",
