@@ -95,7 +95,7 @@ const ObjectComponent: React.FC<Props> = ({
 
     const isExpired =
       new Date().getTime() - new Date(object.createdAt).getTime() >
-      10 * 60 * 1000;
+      30 * 60 * 1000;
 
     if (!isAdmin && isExpired && object.id !== "") {
       return;
@@ -703,7 +703,7 @@ const ObjectComponent: React.FC<Props> = ({
               object.disabled ||
               (sessionStorage.getItem("role") !== adminCode &&
                 new Date().getTime() - new Date(object.createdAt).getTime() >
-                  10 * 60 * 1000) ||
+                  30 * 60 * 1000) ||
               (object.id !== "" &&
                 !JSON.parse(sessionStorage.getItem("history") || "[]").includes(
                   object.id
