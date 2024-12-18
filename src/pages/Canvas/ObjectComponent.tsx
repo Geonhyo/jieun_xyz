@@ -218,7 +218,11 @@ const ObjectComponent: React.FC<Props> = ({
   const handleTapResize = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
 
-    if (textareaRef.current && document.activeElement === textareaRef.current) {
+    if (
+      textareaRef.current &&
+      document.activeElement === textareaRef.current &&
+      e.type === "touchstart"
+    ) {
       textareaRef.current.blur();
       return;
     }
@@ -345,7 +349,11 @@ const ObjectComponent: React.FC<Props> = ({
   const handleTapRotation = (e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
 
-    if (textareaRef.current && document.activeElement === textareaRef.current) {
+    if (
+      textareaRef.current &&
+      document.activeElement === textareaRef.current &&
+      e.type === "touchstart"
+    ) {
       textareaRef.current.blur();
       return;
     }
