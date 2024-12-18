@@ -232,7 +232,7 @@ const Canvas: React.FC = () => {
         data: {
           type: "text",
           text: "",
-          size: 24,
+          size: 14,
           color: "#232323",
           family: "NotoSansKR",
           bold: false,

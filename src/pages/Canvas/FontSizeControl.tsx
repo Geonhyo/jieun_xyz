@@ -6,8 +6,8 @@ type Props = {
   onChangeValue: (value: number) => void;
 };
 
-const MIN = 12;
-const MAX = 100;
+const MIN = 4;
+const MAX = 24;
 
 const FontSizeControl: React.FC<Props> = ({ value, onChangeValue }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
