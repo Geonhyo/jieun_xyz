@@ -5,6 +5,7 @@ const Home: React.FC = () => {
     <div className={styles.home}>
       <img className={styles.image} src="images/main.png" />
       <div className={styles.footer}>
+        <p className={styles.credit}>Designed By 정서, Made by 건효</p>
         <a href="/2024-12-21" className={styles.button}>
           <span className={styles.label}>롤링페이퍼 작성하기</span>
           <svg
